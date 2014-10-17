@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6246" systemVersion="14A386b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="Allergeez" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gluten Free?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDU-D3-Grj">
+                                <rect key="frame" x="54" y="265" width="213" height="48"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBr-MJ-hCT">
+                                <rect key="frame" x="146" y="82" width="30" height="59"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QO8-Iy-Je5">
+                                <rect key="frame" x="0.0" y="487" width="320" height="81"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Find Out">
+                                    <color key="titleColor" red="0.31372549020000001" green="0.6705882353" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="findButtonPressed" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rzV-15-r8Y"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pesto" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nRm-5N-NVi">
+                                <rect key="frame" x="14" y="187" width="293" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="LkO-c3-HH1"/>
+                                    <constraint firstAttribute="width" constant="293" id="LmR-69-r1H"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="kIG-dt-rPs"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-f9-Lam">
+                                <rect key="frame" x="100" y="330" width="120" height="120"/>
+                                <state key="normal" image="rolling_excited">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="rolling_excited"/>
+                                <connections>
+                                    <action selector="isFreeImageButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="XrZ-2l-x9C"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops, I can't find that!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H84-MV-8RC">
+                                <rect key="frame" x="105" y="423" width="110" height="13"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.31372549020000001" green="0.6705882353" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="nRm-5N-NVi" secondAttribute="centerY" constant="76.5" id="1SC-Pd-5oK"/>
+                            <constraint firstAttribute="centerX" secondItem="nRm-5N-NVi" secondAttribute="centerX" constant="-0.5" id="7EY-Tk-qid"/>
+                            <constraint firstItem="gDU-D3-Grj" firstAttribute="top" secondItem="nRm-5N-NVi" secondAttribute="bottom" constant="37" id="8uI-Pc-tev"/>
+                            <constraint firstAttribute="centerY" secondItem="fBr-MJ-hCT" secondAttribute="centerY" constant="172.5" id="B0h-1h-Axw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QO8-Iy-Je5" secondAttribute="trailing" constant="-16" id="E2M-XT-ASR"/>
+                            <constraint firstAttribute="centerX" secondItem="fBr-MJ-hCT" secondAttribute="centerX" constant="-0.5" id="Ibr-aw-2gz"/>
+                            <constraint firstAttribute="centerX" secondItem="gDU-D3-Grj" secondAttribute="centerX" constant="-0.5" id="JuT-8E-dfC"/>
+                            <constraint firstAttribute="centerY" secondItem="H84-MV-8RC" secondAttribute="centerY" constant="-145.5" id="Kws-DF-bCU"/>
+                            <constraint firstAttribute="centerX" secondItem="PBw-f9-Lam" secondAttribute="centerX" id="MpN-tj-b0j"/>
+                            <constraint firstItem="PBw-f9-Lam" firstAttribute="top" secondItem="gDU-D3-Grj" secondAttribute="bottom" constant="17" id="Rmo-Ru-fDr"/>
+                            <constraint firstAttribute="centerY" secondItem="PBw-f9-Lam" secondAttribute="centerY" constant="-106" id="SoK-ZL-Ioz"/>
+                            <constraint firstAttribute="centerX" secondItem="H84-MV-8RC" secondAttribute="centerX" id="ZZP-wg-lTc"/>
+                            <constraint firstItem="nRm-5N-NVi" firstAttribute="top" secondItem="fBr-MJ-hCT" secondAttribute="bottom" constant="46" id="ZoD-Zr-gfN"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="QO8-Iy-Je5" secondAttribute="bottom" id="aSV-tH-hkO"/>
+                            <constraint firstItem="fBr-MJ-hCT" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="62" id="b5N-vN-VTD"/>
+                            <constraint firstItem="H84-MV-8RC" firstAttribute="top" secondItem="PBw-f9-Lam" secondAttribute="bottom" constant="-27" id="n0V-xn-y7j"/>
+                            <constraint firstItem="QO8-Iy-Je5" firstAttribute="top" secondItem="H84-MV-8RC" secondAttribute="bottom" constant="51" id="ndh-Sh-jSM"/>
+                            <constraint firstAttribute="centerY" secondItem="gDU-D3-Grj" secondAttribute="centerY" constant="-5" id="qhc-d3-cWy"/>
+                            <constraint firstItem="QO8-Iy-Je5" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="vi6-P9-Eni"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="findOutButton" destination="QO8-Iy-Je5" id="Ndc-pW-aMA"/>
+                        <outlet property="foodTextField" destination="nRm-5N-NVi" id="mEH-zt-pVv"/>
+                        <outlet property="imageInfoLabel" destination="H84-MV-8RC" id="Hll-XE-FQ9"/>
+                        <outlet property="isFreeImageButton" destination="PBw-f9-Lam" id="wy0-JQ-HRH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="234" y="406"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="rolling_excited" width="120" height="120"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
