@@ -26,7 +26,7 @@ class FoodsTableViewController: UITableViewController, UITableViewDataSource {
         let fetchRequest = NSFetchRequest(entityName: "Foods")
         
         foodsList = context.executeFetchRequest(fetchRequest, error: nil)!
-        println("Food List: \(foodsList)")
+        //println("Food List: \(foodsList)")
         
         tableView.reloadData()
         

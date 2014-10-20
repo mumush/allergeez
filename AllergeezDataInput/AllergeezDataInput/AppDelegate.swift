@@ -64,27 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         
-        //begin preload edits to boilerplate code
-        
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("AllergeezDataInput.sqlite")
-        
-//        var fileMan = NSFileManager.defaultManager()
-//        
-//        
-//        if !fileMan.fileExistsAtPath(url.path!) {
-//            
-//            var defaultStore = NSBundle.mainBundle().URLForResource("Allergeez", withExtension: "sqlite")
-//            
-//            if (defaultStore != nil) {
-//                
-//                println("Hello")
-//                
-//                fileMan.copyItemAtURL(defaultStore!, toURL: url, error: nil)
-//                
-//            }
-//            
-//        }
-        
         
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."

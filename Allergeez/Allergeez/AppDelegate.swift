@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if (defaultStore != nil) {
                 
-                println("Hello")
+                println("Preloading Data!")
                 
                 fileMan.copyItemAtURL(defaultStore!, toURL: url, error: nil)
                 
