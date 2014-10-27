@@ -38,7 +38,7 @@ class FoodsTableViewController: UITableViewController, UITableViewDataSource {
     }
     
     
-
+	
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -59,7 +59,7 @@ class FoodsTableViewController: UITableViewController, UITableViewDataSource {
         
         var data:NSManagedObject = foodsList[indexPath.row] as NSManagedObject
         
-        cell.textLabel?.text = data.valueForKeyPath("name") as? String
+        cell.textLabel.text = data.valueForKeyPath("name") as? String
         
         var isGlutenFree:Bool = data.valueForKeyPath("isGlutenFree") as Bool
         var isDairyFree:Bool = data.valueForKeyPath("isDairyFree") as Bool

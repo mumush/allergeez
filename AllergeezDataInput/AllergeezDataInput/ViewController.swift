@@ -18,9 +18,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var isDairyFreeSwitch: UISwitch!
     @IBOutlet weak var isSoyFreeSwitch: UISwitch!
     
-    
-    var existingItem:NSManagedObject?
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +64,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let context:NSManagedObjectContext = appDel.managedObjectContext!
         
         var fetchCheckIfExists:NSFetchRequest = NSFetchRequest(entityName: "Foods")
-        fetchCheckIfExists.predicate = NSPredicate(format: "name contains %@", self.nameTextField.text.lowercaseString)
+        fetchCheckIfExists.predicate = NSPredicate(format: "name ==[c] %@", self.nameTextField.text.lowercaseString)
         var numOfOccurences = context.countForFetchRequest(fetchCheckIfExists, error: nil)
         
         //println(numOfOccurences)
