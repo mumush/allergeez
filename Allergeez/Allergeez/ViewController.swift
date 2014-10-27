@@ -9,37 +9,90 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var findOutButton: UIButton!
     @IBOutlet weak var foodTextField: UITextField!
     @IBOutlet weak var isFreeImageButton: UIButton!
     @IBOutlet weak var imageInfoLabel: UILabel!
     
+    @IBOutlet weak var isAreLabel: UILabel!
     
     var foodsList : Array<AnyObject> = []
-    
     
     let infoLabelInitial = "Tap me to get started!"
     let infoLabelNotFound = "Oops, I can't find that!"
     let infoLabelEmptySearch = "C'mon, at least type something!"
+    let infoLabelisFree = "You're in the clear!"
+    let infoLabelisNotFree = "Nope, avoid this one!"
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let appDel:AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let context:NSManagedObjectContext = appDel.managedObjectContext!
-        
-        let fetchRequest = NSFetchRequest(entityName: "Foods")
-        
-        foodsList = context.executeFetchRequest(fetchRequest, error: nil)!
-        println("Food List: \(foodsList)")
-        
-        
         foodTextField.clearButtonMode = UITextFieldViewMode.Always
         
+        generateScrollView()
+        
     }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.x == 0 {
+            
+            pageControl.currentPage = 0
+            
+        }
+        else if scrollView.contentOffset.x == 320 {
+            
+            pageControl.currentPage = 1
+            
+        }
+        else if scrollView.contentOffset.x == 640 {
+            
+            pageControl.currentPage = 2
+            
+        }
+        
+    }
+    
+    
+    func generateScrollView() {
+        
+        var glutenLabel = UILabel()
+        glutenLabel.frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height)
+        glutenLabel.text = "Gluten Free?"
+        glutenLabel.textColor = UIColor.whiteColor()
+        glutenLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
+        glutenLabel.textAlignment = NSTextAlignment.Center
+        
+        var dairyLabel = UILabel()
+        dairyLabel.frame = CGRectMake(320, 0, scrollView.frame.size.width, scrollView.frame.size.height)
+        dairyLabel.text = "Dairy Free?"
+        dairyLabel.textColor = UIColor.whiteColor()
+        dairyLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
+        dairyLabel.textAlignment = NSTextAlignment.Center
+        
+        var soyLabel = UILabel()
+        soyLabel.frame = CGRectMake(640, 0, scrollView.frame.size.width, scrollView.frame.size.height)
+        soyLabel.text = "Soy Free?"
+        soyLabel.textColor = UIColor.whiteColor()
+        soyLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
+        soyLabel.textAlignment = NSTextAlignment.Center
+
+        
+        scrollView.contentSize = CGSize(width: 960.0, height: 65.0)
+        scrollView.pagingEnabled = true;
+        
+        scrollView.addSubview(glutenLabel)
+        scrollView.addSubview(dairyLabel)
+        scrollView.addSubview(soyLabel)
+        
+        
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,7 +105,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         self.foodTextField.becomeFirstResponder()
     }
-    
     
 
     @IBAction func findButtonPressed() {
@@ -167,7 +219,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //Changes the UI color to GREEN and the rolling pins icon because the food IS allergen free
     func changeUIIsFree() {
         
-        let greenColor = UIColor(red: 123/255, green: 232/255, blue: 180/255, alpha: 1.0)
+        let greenColor = UIColor(red: 99/255, green: 219/255, blue: 153/255, alpha: 1.0)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
@@ -176,6 +228,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.view.backgroundColor = greenColor
                 self.findOutButton.setTitleColor(greenColor, forState: UIControlState.Normal)
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_happy"), forState: UIControlState.Normal)
+                self.imageInfoLabel.text = self.infoLabelisFree
+                self.imageInfoLabel.hidden = false
             
             }) //end animation
             
@@ -195,6 +249,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.view.backgroundColor = redColor
                 self.findOutButton.setTitleColor(redColor, forState: UIControlState.Normal)
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_sad"), forState: UIControlState.Normal)
+                self.imageInfoLabel.text = self.infoLabelisNotFree
+                self.imageInfoLabel.hidden = false
             
             }) //end animation
             
@@ -224,7 +280,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func changeUIDefault() {
         
-        let blueColor = UIColor(red: 80/255, green: 171/255, blue: 250/250, alpha: 1.0)
+        let blueColor = UIColor(red: 102/255, green: 165/255, blue: 255/255, alpha: 1.0)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
@@ -239,7 +295,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func changeUIEmpty() {
         
-        let blueColor = UIColor(red: 80/255, green: 171/255, blue: 250/250, alpha: 1.0)
+        let blueColor = UIColor(red: 102/255, green: 165/255, blue: 255/255, alpha: 1.0)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
@@ -300,7 +356,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
             //CONSIDER removing the placeholder text to let the user know that they should type in the field
-            self.foodTextField.attributedPlaceholder = NSAttributedString(string: "Pesto", attributes: [NSForegroundColorAttributeName: zeroOpacityColor])
+            self.foodTextField.attributedPlaceholder = NSAttributedString(string: "Corn", attributes: [NSForegroundColorAttributeName: zeroOpacityColor])
             
         }) //end async on main thread
         
@@ -312,7 +368,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(textField: UITextField) {
         
         //return the placeholder text to its original state
-        self.foodTextField.attributedPlaceholder = NSAttributedString(string: "Pesto")
+        self.foodTextField.attributedPlaceholder = NSAttributedString(string: "Corn")
         
     }
     
