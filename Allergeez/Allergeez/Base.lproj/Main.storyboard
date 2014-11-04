@@ -76,7 +76,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Pb6-R3-EtQ"/>
                                 </connections>
                             </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="p5O-H7-qz6">
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="p5O-H7-qz6">
                                 <rect key="frame" x="141" y="300" width="39" height="37"/>
                             </pageControl>
                         </subviews>

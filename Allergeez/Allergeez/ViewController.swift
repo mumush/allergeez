@@ -15,10 +15,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     @IBOutlet weak var foodTextField: UITextField!
     @IBOutlet weak var isFreeImageButton: UIButton!
     @IBOutlet weak var imageInfoLabel: UILabel!
-    
     @IBOutlet weak var isAreLabel: UILabel!
     
-    var foodsList : Array<AnyObject> = []
+    
+    //Array of all allergens' column names in the data store
+    var allergensArray = ["isGlutenFree", "isDairyFree", "isSoyFree"]
+    
+    
     
     let infoLabelInitial = "Tap me to get started!"
     let infoLabelNotFound = "Oops, I can't find that!"
@@ -37,26 +40,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         generateScrollView()
         
     }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        
-        if scrollView.contentOffset.x == 0 {
-            
-            pageControl.currentPage = 0
-            
-        }
-        else if scrollView.contentOffset.x == 320 {
-            
-            pageControl.currentPage = 1
-            
-        }
-        else if scrollView.contentOffset.x == 640 {
-            
-            pageControl.currentPage = 2
-            
-        }
-        
-    }
+
     
     
     func generateScrollView() {
@@ -122,9 +106,18 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
             println(queryFoodsResult.valueForKey("name")!)
             
-            var isGlutenFree:Bool = queryFoodsResult.valueForKey("isGlutenFree") as Bool
             
-            if isGlutenFree {
+            //check to see which allergen is selected
+            println("Current Page: \(pageControl.currentPage)")
+            
+            //get the string related to the current page
+            //Ex. if "Gluten Free?" page is selected, return "isGlutenFree" from the allergens array
+            //defined afer the user first runs the app
+            //allergensArray[pageControl.currentPage]
+            
+            var isAllergenFree:Bool = queryFoodsResult.valueForKey( allergensArray[pageControl.currentPage] ) as Bool
+            
+            if isAllergenFree {
                 
                 self.changeUIIsFree()
                 
@@ -146,6 +139,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         
     }
+    
     
     //Returns the sanitized version of the food the user entered in the text field
     func sanitizeFoodString(foodTextName:String) -> String {
@@ -174,7 +168,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         //configure fetch request with predicate
         var fetchRequest = NSFetchRequest(entityName: "Foods")
-        var fetchPredicate:NSPredicate = NSPredicate(format: "%K CONTAINS[c] %@", argumentArray: ["name", "\(foodTextName)"])
+        var fetchPredicate:NSPredicate = NSPredicate(format: "%K MATCHES[c] %@", argumentArray: ["name", "\(foodTextName)"])
         fetchRequest.predicate = fetchPredicate
 
         var fetchError:NSError? = nil
@@ -184,7 +178,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         if((fetchError) != nil) { //if there was a fetch error, CONSIDER another color for fetch errors
             
-            println("Uh Oh")
+            println("Fetch Error")
             println(fetchError?.localizedDescription)
             
             return nil
@@ -197,9 +191,18 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             var foundFoodObject:NSManagedObject = result[0] as NSManagedObject
             
             var foodName = foundFoodObject.valueForKey("name") as String
-            var isGlutenFree = foundFoodObject.valueForKey("isGlutenFree") as Bool
+            var isAllergenFree = foundFoodObject.valueForKey( allergensArray[pageControl.currentPage] ) as Bool
             
-            println("Food Name: \(foodName)\nIs Gluten Free: \(isGlutenFree)")
+            println("Food Name: \(foodName)\n\(allergensArray[pageControl.currentPage]): \(isAllergenFree)")
+            
+
+            if foodName.hasSuffix("s") && !foodName.hasSuffix("us") && !foodName.hasSuffix("ss") {
+                
+                changeIsAreLabel("Are")
+                
+            }
+
+            
             
             return foundFoodObject
             
@@ -214,6 +217,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         
     }
+    
+    //Changes the text in the label that initially reads "Is" -> 'newLabel' is the string of text to change the label to
+    func changeIsAreLabel(newLabel: String) {
+        
+        self.isAreLabel.text = newLabel
+        
+    }
+    
     
     
     //Changes the UI color to GREEN and the rolling pins icon because the food IS allergen free
@@ -338,6 +349,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
             UIView.animateWithDuration(0.4, animations: { () -> Void in
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
+                
             }) //end animation
             
         }) //end async on main thread
@@ -349,13 +361,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     func textFieldDidBeginEditing(textField: UITextField) {
         
-        //println("Began Editing")
+        //First change the Is/Are label back to "Is" to conform with the singular placeholder "Corn" below
+        changeIsAreLabel("Is")
         
         let zeroOpacityColor = UIColor(red: 80/255, green: 171/255, blue: 250/250, alpha: 0.0)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
-            //CONSIDER removing the placeholder text to let the user know that they should type in the field
+            //Remove the placeholder text to let the user know that they should type in the field
             self.foodTextField.attributedPlaceholder = NSAttributedString(string: "Corn", attributes: [NSForegroundColorAttributeName: zeroOpacityColor])
             
         }) //end async on main thread
@@ -369,6 +382,30 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         //return the placeholder text to its original state
         self.foodTextField.attributedPlaceholder = NSAttributedString(string: "Corn")
+        
+    }
+    
+    
+
+    //UIScrollViewDelegate Methods
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.x == 0 {
+            
+            pageControl.currentPage = 0
+            
+        }
+        else if scrollView.contentOffset.x == 320 {
+            
+            pageControl.currentPage = 1
+            
+        }
+        else if scrollView.contentOffset.x == 640 {
+            
+            pageControl.currentPage = 2
+            
+        }
         
     }
     
