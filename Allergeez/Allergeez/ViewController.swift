@@ -29,6 +29,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     let infoLabelisFree = "You're in the clear!"
     let infoLabelisNotFree = "Nope, avoid this one!"
     
+    let infoLabelisFreeArray = ["You're in the clear!", "Yes indeed. Mmmm.", "This'll be tasty. Enjoy!", "Yep. Throw it in the cart!"]
+    let infoLabelisNotFreeArray = ["Nope, avoid this one!", "Stay away from it!", "This won't make ya feel good!", "Pass on this."]
+    let infoLabelNotFoundArray = ["Oops, I can't find that!", "Uh oh. I can't find that!", "Uh oh...This is awkward."]
+    
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
@@ -226,6 +231,18 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     }
     
     
+    //Returns a random element from the array passed
+    //Element will contain a search result saying based on result of search
+    func getRandomSaying(searchResultSayings : [String]) -> String {
+        
+        var randomIndex = Int( arc4random_uniform( UInt32(searchResultSayings.count)))
+        
+        println("Random Saying: \(searchResultSayings[randomIndex])")
+        
+        return searchResultSayings[randomIndex]
+        
+    }
+    
     
     //Changes the UI color to GREEN and the rolling pins icon because the food IS allergen free
     func changeUIIsFree() {
@@ -234,12 +251,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
 
                 self.view.backgroundColor = greenColor
                 self.findOutButton.setTitleColor(greenColor, forState: UIControlState.Normal)
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_happy"), forState: UIControlState.Normal)
-                self.imageInfoLabel.text = self.infoLabelisFree
+                self.imageInfoLabel.text = self.getRandomSaying(self.infoLabelisFreeArray)
                 self.imageInfoLabel.hidden = false
             
             }) //end animation
@@ -255,12 +272,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
             
                 self.view.backgroundColor = redColor
                 self.findOutButton.setTitleColor(redColor, forState: UIControlState.Normal)
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_sad"), forState: UIControlState.Normal)
-                self.imageInfoLabel.text = self.infoLabelisNotFree
+                //self.imageInfoLabel.text = self.infoLabelisNotFree
+                self.imageInfoLabel.text = self.getRandomSaying(self.infoLabelisNotFreeArray)
                 self.imageInfoLabel.hidden = false
             
             }) //end animation
@@ -276,12 +294,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
             
                 self.view.backgroundColor = purpleColor
                 self.findOutButton.setTitleColor(purpleColor, forState: UIControlState.Normal)
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_oh"), forState: UIControlState.Normal)
-                self.imageInfoLabel.text = self.infoLabelNotFound
+                self.imageInfoLabel.text = self.getRandomSaying(self.infoLabelNotFoundArray)
                 self.imageInfoLabel.hidden = false
             
             })
@@ -295,7 +313,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.view.backgroundColor = blueColor
                 self.findOutButton.setTitleColor(blueColor, forState: UIControlState.Normal)
                 self.isFreeImageButton.setImage(nil, forState: UIControlState.Normal)
@@ -310,7 +328,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
                 self.imageInfoLabel.text = self.infoLabelEmptySearch
                 self.imageInfoLabel.hidden = false
@@ -329,7 +347,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
             }) //end animation
             
@@ -347,7 +365,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
                 
             }) //end animation
