@@ -22,12 +22,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     var allergensArray = ["isGlutenFree", "isDairyFree", "isSoyFree"]
     
     
-    
-    let infoLabelInitial = "Tap me to get started!"
-    let infoLabelNotFound = "Oops, I can't find that!"
+    //Arrays used for label under rolling pin icon, based on result of ingredient search
     let infoLabelEmptySearch = "C'mon, at least type something!"
-    let infoLabelisFree = "You're in the clear!"
-    let infoLabelisNotFree = "Nope, avoid this one!"
     
     let infoLabelisFreeArray = ["You're in the clear!", "Yes indeed. Mmmm.", "This'll be tasty. Enjoy!", "Yep. Throw it in the cart!"]
     let infoLabelisNotFreeArray = ["Nope, avoid this one!", "Stay away from it!", "This won't make ya feel good!", "Pass on this."]
@@ -38,15 +34,21 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     @IBOutlet weak var pageControl: UIPageControl!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         foodTextField.clearButtonMode = UITextFieldViewMode.Always
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        super.viewDidAppear(true)
         
         generateScrollView()
         
     }
 
-    
     
     func generateScrollView() {
         
@@ -58,21 +60,21 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         glutenLabel.textAlignment = NSTextAlignment.Center
         
         var dairyLabel = UILabel()
-        dairyLabel.frame = CGRectMake(320, 0, scrollView.frame.size.width, scrollView.frame.size.height)
+        dairyLabel.frame = CGRectMake(scrollView.frame.size.width * 1, 0, scrollView.frame.size.width, scrollView.frame.size.height)
         dairyLabel.text = "Dairy Free?"
         dairyLabel.textColor = UIColor.whiteColor()
         dairyLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
         dairyLabel.textAlignment = NSTextAlignment.Center
         
         var soyLabel = UILabel()
-        soyLabel.frame = CGRectMake(640, 0, scrollView.frame.size.width, scrollView.frame.size.height)
+        soyLabel.frame = CGRectMake(scrollView.frame.size.width * 2, 0, scrollView.frame.size.width, scrollView.frame.size.height)
         soyLabel.text = "Soy Free?"
         soyLabel.textColor = UIColor.whiteColor()
         soyLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
         soyLabel.textAlignment = NSTextAlignment.Center
 
         
-        scrollView.contentSize = CGSize(width: 960.0, height: 65.0)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 3, height: scrollView.frame.size.height)
         scrollView.pagingEnabled = true;
         
         scrollView.addSubview(glutenLabel)
@@ -277,7 +279,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
                 self.view.backgroundColor = redColor
                 self.findOutButton.setTitleColor(redColor, forState: UIControlState.Normal)
                 self.isFreeImageButton.setImage(UIImage(named: "rolling_sad"), forState: UIControlState.Normal)
-                //self.imageInfoLabel.text = self.infoLabelisNotFree
                 self.imageInfoLabel.text = self.getRandomSaying(self.infoLabelisNotFreeArray)
                 self.imageInfoLabel.hidden = false
             
@@ -413,15 +414,21 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
             pageControl.currentPage = 0
             
+            findButtonPressed()
+            
         }
         else if scrollView.contentOffset.x == 320 {
             
             pageControl.currentPage = 1
             
+            findButtonPressed()
+            
         }
         else if scrollView.contentOffset.x == 640 {
             
             pageControl.currentPage = 2
+            
+            findButtonPressed()
             
         }
         
