@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         //white status bar
-        application.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
+        //application.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
         
         return true
     }
