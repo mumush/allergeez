@@ -69,16 +69,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         
         
-        //PRELOAD FOOD DATA
+        //PRELOAD INGREDIENTS DATA
         
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("FoodData.sqlite")
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Foods.sqlite")
         
         var fileMan = NSFileManager.defaultManager()
         
         
         if !fileMan.fileExistsAtPath(url.path!) {
             
-            var defaultStore = NSBundle.mainBundle().URLForResource("FoodData", withExtension: "sqlite")
+            var defaultStore = NSBundle.mainBundle().URLForResource("Foods", withExtension: "sqlite")
             
             if (defaultStore != nil) {
                 
@@ -90,8 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
-        
-        //END PRELOAD FOOD DATA
+        //END PRELOAD INGREDIENTS DATA
         
         
         var error: NSError? = nil

@@ -12,10 +12,9 @@ import CoreData
 class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var ingredientField: UITextField!
+    @IBOutlet weak var isAreLabel: UILabel!
     @IBOutlet weak var rollingPinImageButton: UIButton!
     @IBOutlet weak var rollingPinLabel: UILabel!
-    @IBOutlet weak var isAreLabel: UILabel!
-    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
@@ -92,7 +91,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         // Dispose of any resources that can be recreated.
     }
     
-    
+
     //Tap on the rolling pin, bring ingredientField into focus with the keyboard
     @IBAction func rollingPinPressed(sender: AnyObject) {
         
@@ -100,6 +99,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
     }
 
+    
     //Called when the user presses the search key
     func searchIngredients() {
         
