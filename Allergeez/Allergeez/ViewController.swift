@@ -11,34 +11,46 @@ import CoreData
 
 class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
     
-    @IBOutlet weak var foodTextField: UITextField!
-    @IBOutlet weak var isFreeImageButton: UIButton!
-    @IBOutlet weak var imageInfoLabel: UILabel!
+    @IBOutlet weak var ingredientField: UITextField!
+    @IBOutlet weak var rollingPinImageButton: UIButton!
+    @IBOutlet weak var rollingPinLabel: UILabel!
     @IBOutlet weak var isAreLabel: UILabel!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
-    //Array of all allergens' column names in the data store
-    var allergensArray = ["isGlutenFree", "isDairyFree", "isSoyFree"]
+    
+    //Array of all allergens' column names in the data store, and their correlating label names
+    var allergensArray = [ ("isGlutenFree", "Gluten Free?"), ("isDairyFree", "Dairy Free?"), ("isSoyFree", "Soy Free?")]
     
     
     //Arrays used for label under rolling pin icon, based on result of ingredient search
     let infoLabelEmptySearch = "Type something first!"
-    
     let infoLabelisFreeArray = ["You're in the clear!", "Yes indeed. Mmmm.", "This'll be tasty. Enjoy!", "Yep. Throw it in the cart!"]
     let infoLabelisNotFreeArray = ["Nope, avoid this one!", "Stay away from it!", "This won't make ya feel good!", "Pass on this."]
     let infoLabelNotFoundArray = ["Oops, I can't find that!", "Uh oh. I can't find that!", "Uh oh...This is awkward."]
     
     
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var pageControl: UIPageControl!
+    //Colors used to change the main views background color
+    var blueColor:UIColor! //Exact color of main view background -> initialized in viewDidLoad()
+    let greenColor = UIColor(red: 99/255, green: 219/255, blue: 153/255, alpha: 1.0)
+    let redColor = UIColor(red: 251/255, green: 112/255, blue: 105/255, alpha: 1.0)
+    let purpleColor = UIColor(red: 165/255, green: 124/255, blue: 199/255, alpha: 1.0)
+    
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        foodTextField.returnKeyType = UIReturnKeyType.Search
+        //Get the EXACT value of the initial background color of the main view defined in IB
+        blueColor = self.view.backgroundColor
         
-        foodTextField.clearButtonMode = UITextFieldViewMode.Always
+        //Change the bottom right "return" key on the keyboard to "Search"
+        ingredientField.returnKeyType = UIReturnKeyType.Search
+        
+        //Always keep a clear button to the right of the text field if it's not empty
+        ingredientField.clearButtonMode = UITextFieldViewMode.Always
         
     }
     
@@ -46,42 +58,31 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         super.viewDidAppear(true)
         
+        //create the scrollView containing each of the food allergens
         generateScrollView()
         
     }
 
     
+    //Populates scrollView with a label for each food allergen from allergensArray
     func generateScrollView() {
         
-        var glutenLabel = UILabel()
-        glutenLabel.frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height)
-        glutenLabel.text = "Gluten Free?"
-        glutenLabel.textColor = UIColor.whiteColor()
-        glutenLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
-        glutenLabel.textAlignment = NSTextAlignment.Center
-        
-        var dairyLabel = UILabel()
-        dairyLabel.frame = CGRectMake(scrollView.frame.size.width * 1, 0, scrollView.frame.size.width, scrollView.frame.size.height)
-        dairyLabel.text = "Dairy Free?"
-        dairyLabel.textColor = UIColor.whiteColor()
-        dairyLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
-        dairyLabel.textAlignment = NSTextAlignment.Center
-        
-        var soyLabel = UILabel()
-        soyLabel.frame = CGRectMake(scrollView.frame.size.width * 2, 0, scrollView.frame.size.width, scrollView.frame.size.height)
-        soyLabel.text = "Soy Free?"
-        soyLabel.textColor = UIColor.whiteColor()
-        soyLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
-        soyLabel.textAlignment = NSTextAlignment.Center
+        for var index = 0; index < allergensArray.count; index++ {
+            
+            var allergenLabel = UILabel()
+            allergenLabel.frame = CGRectMake(scrollView.frame.size.width * CGFloat(index), 0, scrollView.frame.size.width, scrollView.frame.size.height)
+            allergenLabel.text = allergensArray[index].1
+            allergenLabel.textColor = UIColor.whiteColor()
+            allergenLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
+            allergenLabel.textAlignment = NSTextAlignment.Center
+            
+            scrollView.addSubview(allergenLabel)
+        }
 
-        
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 3, height: scrollView.frame.size.height)
-        scrollView.pagingEnabled = true;
-        
-        scrollView.addSubview(glutenLabel)
-        scrollView.addSubview(dairyLabel)
-        scrollView.addSubview(soyLabel)
-        
+        //contentSize is equal to the number of labels added (3) * the frame width of the scrollView
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(allergensArray.count), height: scrollView.frame.size.height)
+        scrollView.pagingEnabled = true
+        scrollView.decelerationRate = UIScrollViewDecelerationRateFast
         
     }
     
@@ -92,39 +93,45 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     }
     
     
-    //tap on the rolling pin imageview, bring the foodTextField into focus with the keyboard
-    @IBAction func isFreeImageButtonPressed(sender: AnyObject) {
+    //Tap on the rolling pin, bring ingredientField into focus with the keyboard
+    @IBAction func rollingPinPressed(sender: AnyObject) {
         
-        self.foodTextField.becomeFirstResponder()
+        self.ingredientField.becomeFirstResponder()
+        
     }
-    
 
-    //Called when the user presses the return key, taps outside of the
-    @IBAction func searchIngredients() {
+    //Called when the user presses the search key
+    func searchIngredients() {
         
-        var sanitizedFood = sanitizeFoodString(self.foodTextField.text)
+        var sanitizedIngredient = sanitizeIngredientString(self.ingredientField.text)
         
-        if sanitizedFood == "" {
+        if sanitizedIngredient == "" {
             
             changeUIEmpty()
             
             return
         }
         
-        if let queryFoodsResult = searchFoods(sanitizedFood) { //the food exists in the DB, we should use it
+        if let queryResult = queryIngredientStore(sanitizedIngredient) { //the ingredient exists in the DB, use it's managed object
             
-            println(queryFoodsResult.valueForKey("name")!)
+            var ingredientName = queryResult.valueForKey("name") as String
+            println("\(ingredientName)")
             
             
-            //check to see which allergen is selected
+            //If the ingredient should be pronounced plural, change the label to read "Are"
+            if ingredientName.hasSuffix("s") && !ingredientName.hasSuffix("us") && !ingredientName.hasSuffix("ss") {
+                
+                changeIsAreLabel("Are")
+            }
+            
+            
+            //Check to see which allergen is selected
             println("Current Page: \(pageControl.currentPage)")
             
-            //get the string related to the current page
-            //Ex. if "Gluten Free?" page is selected, return "isGlutenFree" from the allergens array
-            //defined afer the user first runs the app
-            //allergensArray[pageControl.currentPage]
+            //Use current pageControl page as index in allergensArray, and select the first (0th) item in the tuple
+            //Ex. if "Gluten Free?" page is selected, return "isGlutenFree" from the allergens array tuple -> ("isGlutenFree", "Gluten Free?")
             
-            var isAllergenFree:Bool = queryFoodsResult.valueForKey( allergensArray[pageControl.currentPage] ) as Bool
+            var isAllergenFree:Bool = queryResult.valueForKey( allergensArray[pageControl.currentPage].0 ) as Bool
             
             if isAllergenFree {
                 
@@ -138,46 +145,45 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             }
             
         }
-        else { //the food is nil, it does not exist in the DB
+        else { //the ingredient is nil, it does not exist in the store
             
-            println("Food wasn't found")
+            println("Ingredient wasn't found")
                 
             self.changeUINotFound()
-            
         }
         
         
     }
     
     
-    //Returns the sanitized version of the food the user entered in the text field
-    func sanitizeFoodString(foodTextName:String) -> String {
+    //Returns the sanitized version of the ingredient string the user entered in the text field
+    func sanitizeIngredientString(ingredient:String) -> String {
         
-        println("Original String: \(foodTextName)")
+        println("Original String: \(ingredient)")
         
-        var sanitizedFood = foodTextField.text.lowercaseString //lol
+        var sanitizedIngredient = ingredient.lowercaseString //lol
         
-        println("Lowercase String: \(sanitizedFood)")
+        println("Lowercase String: \(sanitizedIngredient)")
         
-        sanitizedFood = sanitizedFood.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        sanitizedFood = sanitizedFood.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+        sanitizedIngredient = sanitizedIngredient.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        sanitizedIngredient = sanitizedIngredient.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
         
-        println("No Whitespace String: \(sanitizedFood)")
+        println("No Whitespace/Punctuation String: \(sanitizedIngredient)")
         
-        return sanitizedFood
+        return sanitizedIngredient
         
     }
     
     
-    //Returns a food as an NSManagedObject if it's found in the store, if not, returns nil
-    func searchFoods(foodTextName:String) -> NSManagedObject? {
+    //Returns an ingredient as an NSManagedObject if it's found in the data store, if not, returns nil
+    func queryIngredientStore(ingredient:String) -> NSManagedObject? {
         
         let appDel:AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let context:NSManagedObjectContext = appDel.managedObjectContext!
         
         //configure fetch request with predicate
         var fetchRequest = NSFetchRequest(entityName: "Foods")
-        var fetchPredicate:NSPredicate = NSPredicate(format: "%K MATCHES[c] %@", argumentArray: ["name", "\(foodTextName)"])
+        var fetchPredicate:NSPredicate = NSPredicate(format: "%K MATCHES[c] %@", argumentArray: ["name", "\(ingredient)"])
         fetchRequest.predicate = fetchPredicate
 
         var fetchError:NSError? = nil
@@ -197,28 +203,20 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
             println("Result List: \(result)")
             
-            var foundFoodObject:NSManagedObject = result[0] as NSManagedObject
+            var foundIngredientObject:NSManagedObject = result[0] as NSManagedObject //only interested in first result
             
-            var foodName = foundFoodObject.valueForKey("name") as String
-            var isAllergenFree = foundFoodObject.valueForKey( allergensArray[pageControl.currentPage] ) as Bool
+            var ingredientName = foundIngredientObject.valueForKey("name") as String
+            var isAllergenFree = foundIngredientObject.valueForKey( allergensArray[pageControl.currentPage].0 ) as Bool
             
-            println("Food Name: \(foodName)\n\(allergensArray[pageControl.currentPage]): \(isAllergenFree)")
-            
-
-            if foodName.hasSuffix("s") && !foodName.hasSuffix("us") && !foodName.hasSuffix("ss") {
-                
-                changeIsAreLabel("Are")
-                
-            }
-
+            println("Ingredient Name: \(ingredientName)\n\(allergensArray[pageControl.currentPage].0): \(isAllergenFree)")
             
             
-            return foundFoodObject
+            return foundIngredientObject
             
         }
         else { //if no result was found
             
-            println("Food not found")
+            println("Ingredient not in store")
          
             return nil
             
@@ -227,115 +225,117 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
     }
     
-    //Changes the text in the label that initially reads "Is" -> 'newLabel' is the string of text to change the label to
+    //Changes the text in isAreLabel that initially reads "Is" to newLabel
     func changeIsAreLabel(newLabel: String) {
         
         self.isAreLabel.text = newLabel
-        
     }
     
     
-    //Returns a random element from the array passed
+    //Returns a random element from the array passed (see arrays defined at top)
     //Element will contain a search result saying based on result of search
     func getRandomSaying(searchResultSayings : [String]) -> String {
         
         var randomIndex = Int( arc4random_uniform( UInt32(searchResultSayings.count)))
         
-        println("Random Saying: \(searchResultSayings[randomIndex])")
-        
         return searchResultSayings[randomIndex]
-        
     }
     
     
-    //Changes the UI color to GREEN and the rolling pins icon because the food IS allergen free
+    //Changes elements of UI because the ingredient IS allergen free
     func changeUIIsFree() {
-        
-        let greenColor = UIColor(red: 99/255, green: 219/255, blue: 153/255, alpha: 1.0)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
             UIView.animateWithDuration(0.2, animations: { () -> Void in
 
-                self.view.backgroundColor = greenColor
-                self.isFreeImageButton.setImage(UIImage(named: "rolling_happy"), forState: UIControlState.Normal)
-                self.imageInfoLabel.text = self.getRandomSaying(self.infoLabelisFreeArray)
-                self.imageInfoLabel.hidden = false
+                self.view.backgroundColor = self.greenColor
+                self.rollingPinImageButton.setImage(UIImage(named: "rolling_happy"), forState: UIControlState.Normal)
+                self.rollingPinLabel.text = self.getRandomSaying(self.infoLabelisFreeArray)
+                self.rollingPinLabel.hidden = false
             
             }) //end animation
             
         })
-        
     }
     
-    //Changes the UI color to RED and the rolling pins icon because the food IS NOT allergen free
+    //Changes elements of UI because the ingredient IS NOT allergen free
     func changeUIIsNotFree() {
         
-        let redColor = UIColor(red: 251/255, green: 112/255, blue: 105/255, alpha: 1.0)
-        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
             UIView.animateWithDuration(0.2, animations: { () -> Void in
             
-                self.view.backgroundColor = redColor
-                self.isFreeImageButton.setImage(UIImage(named: "rolling_sad"), forState: UIControlState.Normal)
-                self.imageInfoLabel.text = self.getRandomSaying(self.infoLabelisNotFreeArray)
-                self.imageInfoLabel.hidden = false
+                self.view.backgroundColor = self.redColor
+                self.rollingPinImageButton.setImage(UIImage(named: "rolling_sad"), forState: UIControlState.Normal)
+                self.rollingPinLabel.text = self.getRandomSaying(self.infoLabelisNotFreeArray)
+                self.rollingPinLabel.hidden = false
             
             }) //end animation
             
         })
-        
     }
     
-    //Changes the UI color to PURPLE and the rolling pins icon because the food CAN'T BE FOUND in the database
+    //Changes elements of UI because the ingredient CAN'T BE FOUND in the database
     func changeUINotFound() {
-        
-        let purpleColor = UIColor(red: 165/255, green: 124/255, blue: 199/255, alpha: 1.0)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
             UIView.animateWithDuration(0.2, animations: { () -> Void in
             
-                self.view.backgroundColor = purpleColor
-                self.isFreeImageButton.setImage(UIImage(named: "rolling_oh"), forState: UIControlState.Normal)
-                self.imageInfoLabel.text = self.getRandomSaying(self.infoLabelNotFoundArray)
-                self.imageInfoLabel.hidden = false
+                self.view.backgroundColor = self.purpleColor
+                self.rollingPinImageButton.setImage(UIImage(named: "rolling_oh"), forState: UIControlState.Normal)
+                self.rollingPinLabel.text = self.getRandomSaying(self.infoLabelNotFoundArray)
+                self.rollingPinLabel.hidden = false
             
             })
         })
-        
     }
     
+    
     func changeUIDefault() {
-        
-        let blueColor = UIColor(red: 102/255, green: 165/255, blue: 255/255, alpha: 1.0)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
             UIView.animateWithDuration(0.2, animations: { () -> Void in
-                self.view.backgroundColor = blueColor
-                self.isFreeImageButton.setImage(nil, forState: UIControlState.Normal)
-                self.imageInfoLabel.hidden = true //hide the informational label
+                self.view.backgroundColor = self.blueColor
+                self.rollingPinImageButton.setImage(nil, forState: UIControlState.Normal)
+                self.rollingPinLabel.hidden = true //hide the informational label
             }) //end animation
         })
     }
     
+    //Changes elements of UI because no text was entered into the text field
     func changeUIEmpty() {
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
             UIView.animateWithDuration(0.2, animations: { () -> Void in
-                self.isFreeImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
-                self.imageInfoLabel.text = self.infoLabelEmptySearch
-                self.imageInfoLabel.hidden = false
+                self.view.backgroundColor = self.blueColor
+                self.rollingPinImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
+                self.rollingPinLabel.text = self.infoLabelEmptySearch
+                self.rollingPinLabel.hidden = false
             }) //end animation
         })
+    }
+    
+    //Changes elements of UI because the user is swiping between allergens
+    func changeUISwiping() {
         
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+                self.view.backgroundColor = self.blueColor
+                self.rollingPinImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
+                self.rollingPinLabel.hidden = true
+            }) //end animation
+        })
     }
     
     
-    //UITextField Delegate Protocol
+    //-----UITextField Delegate Methods-----
+    
+    
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
@@ -357,7 +357,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
             //Remove the placeholder text to let the user know that they should type in the field
-            self.foodTextField.attributedPlaceholder = NSAttributedString(string: "Corn", attributes: [NSForegroundColorAttributeName: zeroOpacityColor])
+            self.ingredientField.attributedPlaceholder = NSAttributedString(string: "Corn", attributes: [NSForegroundColorAttributeName: zeroOpacityColor])
             
         }) //end async on main thread
         
@@ -368,43 +368,55 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     func textFieldDidEndEditing(textField: UITextField) {
         
-        //return the placeholder text to its original state
-        self.foodTextField.attributedPlaceholder = NSAttributedString(string: "Corn")
+        //Return the placeholder text to its original state
+        self.ingredientField.attributedPlaceholder = NSAttributedString(string: "Corn")
         
     }
     
     
+    
 
-    //UIScrollViewDelegate Methods
+    //-----UIScrollViewDelegate Methods-----
+    
+    
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        
+        changeUISwiping()
+    }
+    
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+
+        //Check if the scrollView's ending offset is equal to any of the labels starting x values
+        //If it is, set the currentPage to the associated index, which correlates to a specific allergen (on purpose)
         
-        if scrollView.contentOffset.x == 0 {
+        for var index = 0; index < allergensArray.count; index++ {
             
-            pageControl.currentPage = 0
-
-            searchIngredients()
+            //If we're not editing (ie. keyboard is gone) search the ingredients & update the pageControl
+            if (scrollView.contentOffset.x == scrollView.frame.size.width * CGFloat(index)) && !ingredientField.editing {
+                
+                pageControl.currentPage = index
+                
+                searchIngredients()
+            }
+            //If we are editing (ie. keyboard is visible) just update the pageControl (don't want them searching until the keyboard is gone)
+            else if (scrollView.contentOffset.x == scrollView.frame.size.width * CGFloat(index)) && ingredientField.editing {
+                
+                pageControl.currentPage = index
+                
+            }
             
-            
-        }
-        else if scrollView.contentOffset.x == scrollView.frame.size.width {
-            
-            pageControl.currentPage = 1
-
-            searchIngredients()
-            
-        }
-        else if scrollView.contentOffset.x == scrollView.frame.size.width * 2 {
-            
-            pageControl.currentPage = 2
-            
-            searchIngredients()
-            
-        }
+        } //end for
+        
         
     }
     
     
+    
+    
+    
+    
 
-}
+} //end ViewController class
 

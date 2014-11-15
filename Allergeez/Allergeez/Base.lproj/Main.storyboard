@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-f9-Lam">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-f9-Lam">
                                 <rect key="frame" x="240" y="431" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="ktz-uL-OUe"/>
@@ -28,10 +28,10 @@
                                 </state>
                                 <state key="highlighted" image="rolling_excited"/>
                                 <connections>
-                                    <action selector="isFreeImageButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="XrZ-2l-x9C"/>
+                                    <action selector="rollingPinPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Dzh-el-hs4"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Is" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBr-MJ-hCT">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBr-MJ-hCT">
                                 <rect key="frame" x="286" y="63" width="30" height="54"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
@@ -44,7 +44,7 @@
                                     <rect key="frame" x="187" y="175" width="27" height="48"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap me to get started!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H84-MV-8RC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap me to get started!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H84-MV-8RC">
                                 <rect key="frame" x="204" y="525" width="192" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="192" id="kU1-Yr-7bL"/>
@@ -59,13 +59,13 @@
                                     <rect key="frame" x="104" y="624" width="192" height="17"/>
                                 </variation>
                             </label>
-                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="p5O-H7-qz6">
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="p5O-H7-qz6">
                                 <rect key="frame" x="281" y="356" width="39" height="37"/>
                                 <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="181" y="303" width="39" height="37"/>
                                 </variation>
                             </pageControl>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPb-yu-bCF">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPb-yu-bCF">
                                 <rect key="frame" x="0.0" y="270" width="600" height="110"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="EAU-3P-sMx"/>
@@ -77,7 +77,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="iyo-t4-ixy"/>
                                 </connections>
                             </scrollView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Corn" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nRm-5N-NVi">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Corn" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nRm-5N-NVi">
                                 <rect key="frame" x="159" y="184" width="283" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="283" id="TWL-Iy-gez"/>
@@ -146,11 +146,11 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="foodTextField" destination="nRm-5N-NVi" id="mEH-zt-pVv"/>
-                        <outlet property="imageInfoLabel" destination="H84-MV-8RC" id="Hll-XE-FQ9"/>
+                        <outlet property="ingredientField" destination="nRm-5N-NVi" id="CK0-Uj-MXa"/>
                         <outlet property="isAreLabel" destination="fBr-MJ-hCT" id="voU-B1-ztP"/>
-                        <outlet property="isFreeImageButton" destination="PBw-f9-Lam" id="wy0-JQ-HRH"/>
                         <outlet property="pageControl" destination="p5O-H7-qz6" id="gW3-6H-o83"/>
+                        <outlet property="rollingPinImageButton" destination="PBw-f9-Lam" id="UtQ-aJ-9cA"/>
+                        <outlet property="rollingPinLabel" destination="H84-MV-8RC" id="q5U-jn-t1g"/>
                         <outlet property="scrollView" destination="oPb-yu-bCF" id="GUx-Fi-CLK"/>
                     </connections>
                 </viewController>
