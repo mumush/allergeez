@@ -48,8 +48,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         //Change the bottom right "return" key on the keyboard to "Search"
         ingredientField.returnKeyType = UIReturnKeyType.Search
         
-        //Always keep a clear button to the right of the text field if it's not empty
-        ingredientField.clearButtonMode = UITextFieldViewMode.Always
+        //When the text field is in focus, show the clear button for convenience
+        ingredientField.clearButtonMode = UITextFieldViewMode.WhileEditing
         
     }
     
@@ -57,14 +57,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         super.viewDidAppear(true)
         
-        //create the scrollView containing each of the food allergens
-        generateScrollView()
+        //puts all allergen labels into the scrollView
+        populateScrollView()
         
     }
 
     
     //Populates scrollView with a label for each food allergen from allergensArray
-    func generateScrollView() {
+    func populateScrollView() {
         
         for var index = 0; index < allergensArray.count; index++ {
             
@@ -72,7 +72,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             allergenLabel.frame = CGRectMake(scrollView.frame.size.width * CGFloat(index), 0, scrollView.frame.size.width, scrollView.frame.size.height)
             allergenLabel.text = allergensArray[index].1
             allergenLabel.textColor = UIColor.whiteColor()
-            allergenLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
+            allergenLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 45.0)
             allergenLabel.textAlignment = NSTextAlignment.Center
             
             scrollView.addSubview(allergenLabel)

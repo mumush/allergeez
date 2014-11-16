@@ -66,7 +66,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                 <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="40"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
                                 </variation>
                                 <variation key="widthClass=regular">
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
@@ -100,12 +100,12 @@
                             <constraint firstAttribute="centerX" secondItem="oPb-yu-bCF" secondAttribute="centerX" id="LJM-fK-gWH"/>
                             <constraint firstItem="oPb-yu-bCF" firstAttribute="top" secondItem="nRm-5N-NVi" secondAttribute="bottom" constant="38" id="MFj-u1-3na">
                                 <variation key="widthClass=compact" constant="24"/>
-                                <variation key="widthClass=regular" constant="80"/>
+                                <variation key="widthClass=regular" constant="98"/>
                             </constraint>
                             <constraint firstAttribute="centerX" secondItem="H84-MV-8RC" secondAttribute="centerX" id="WUG-N3-XNp"/>
                             <constraint firstItem="nRm-5N-NVi" firstAttribute="top" secondItem="fBr-MJ-hCT" secondAttribute="bottom" constant="74" id="hhQ-Rk-mTu">
                                 <variation key="widthClass=compact" constant="57"/>
-                                <variation key="widthClass=regular" constant="97"/>
+                                <variation key="widthClass=regular" constant="117"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="oPb-yu-bCF" secondAttribute="trailing" constant="-16" id="jmU-O3-k8s"/>
                             <constraint firstAttribute="centerX" secondItem="fBr-MJ-hCT" secondAttribute="centerX" constant="-1.5" id="laZ-DT-gRG"/>
@@ -140,7 +140,6 @@
                                 <include reference="lzg-sP-xB3"/>
                             </mask>
                         </variation>
-                        <variation key="heightClass=regular-widthClass=compact"/>
                     </view>
                     <connections>
                         <outlet property="ingredientField" destination="nRm-5N-NVi" id="fcO-VY-URK"/>
