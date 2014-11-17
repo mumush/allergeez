@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
+    @IBOutlet weak var scrollViewCenterYConstraint: NSLayoutConstraint!
     
     //Array of all allergens' column names in the data store, and their correlating label names
     var allergensArray = [ ("isGlutenFree", "Gluten Free?"), ("isDairyFree", "Dairy Free?"), ("isSoyFree", "Soy Free?")]
@@ -45,12 +46,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         //Get the EXACT value of the initial background color of the main view defined in IB
         blueColor = self.view.backgroundColor
         
-        //Change the bottom right "return" key on the keyboard to "Search"
-        ingredientField.returnKeyType = UIReturnKeyType.Search
-        
-        //When the text field is in focus, show the clear button for convenience
-        ingredientField.clearButtonMode = UITextFieldViewMode.WhileEditing
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -65,14 +60,28 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     //Populates scrollView with a label for each food allergen from allergensArray
     func populateScrollView() {
+
         
+        //Font size of labels depend on the size class
+        var labelFontSize:CGFloat
+        
+        if self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact {
+            
+            labelFontSize = 45.0
+        }
+        else {
+            labelFontSize = 50.0
+        }
+        
+        
+        //Populate the scrollview with labels
         for var index = 0; index < allergensArray.count; index++ {
             
             var allergenLabel = UILabel()
             allergenLabel.frame = CGRectMake(scrollView.frame.size.width * CGFloat(index), 0, scrollView.frame.size.width, scrollView.frame.size.height)
             allergenLabel.text = allergensArray[index].1
             allergenLabel.textColor = UIColor.whiteColor()
-            allergenLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 45.0)
+            allergenLabel.font = UIFont(name: "HelveticaNeue-Thin", size: labelFontSize)
             allergenLabel.textAlignment = NSTextAlignment.Center
             
             scrollView.addSubview(allergenLabel)
@@ -333,21 +342,94 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     }
     
     
-    //-----UITextField Delegate Methods-----
-    
-    
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    //Hides or Shows the scrollView and the associated pageControl
+    //Only used for devices prior to iPhone 5 (ex. 4s)
+    func toggleScrollViewVisible() {
         
-        textField.resignFirstResponder() //hides the keyboard on return keypress
-        
-        searchIngredients()
-        
-        return true
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                
+                if self.scrollView.hidden == true { //if it's already hidden, show it
+                    
+                    self.scrollView.hidden = false
+                    self.pageControl.hidden = false
+                }
+                else { //if it's visible, hide it
+                    
+                    self.scrollView.hidden = true
+                    self.pageControl.hidden = true
+                }
+                
+                
+            }) //end animation
+        })
         
     }
     
+    //Moves the Y coordinate of scrollView up by a constant value, moving all above views up as well
+    //Used for all devices past the iPhone 4s (ex. 5, 5s, 6, etc.)
+    func slideUpMainView() {
+        
+        self.view.layoutIfNeeded()
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                
+                self.scrollViewCenterYConstraint.constant = self.scrollViewCenterYConstraint.constant + 40.0
+                
+                self.view.layoutIfNeeded()
+                
+            }) //end animation
+        })
+        
+    }
+    
+    
+    //Moves the Y coordinate of scrollView down by a constant value, moving all above views down as well
+    //Used for all devices past the iPhone 4s (ex. 5, 5s, 6, etc.)
+    func slideDownMainView() {
+        
+        self.view.layoutIfNeeded()
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                
+                self.scrollViewCenterYConstraint.constant = self.scrollViewCenterYConstraint.constant - 40.0
+                
+                self.view.layoutIfNeeded()
+                
+            }) //end animation
+        })
+        
+    }
+    
+    
+    //-----UITextField Delegate Methods-----
+    
+
+    
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+
+        //If the main views' height is less than that of the 5s, hide and show the scrollView
+        if self.view.frame.height < 568.0 {
+            
+            toggleScrollViewVisible()
+        }
+            
+        //If the main views' height is that of the 5s or greater, animate the scrollViews constraints up
+        else {
+            
+            slideUpMainView()
+        }
+        
+        
+        return true
+    }
+    
+    
     func textFieldDidBeginEditing(textField: UITextField) {
+        
         
         //First change the Is/Are label back to "Is" to conform with the singular placeholder "Corn" below
         changeIsAreLabel("Is")
@@ -366,11 +448,34 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
     }
     
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        //If the main views' height is less than that of the 5s, hide and show the scrollView
+        //*No need to worry about landscape heights, app is portrait only
+        if self.view.frame.height < 568.0 {
+            
+            toggleScrollViewVisible()
+        }
+        //If the main views' height is that of the 5s or greater, animate the scrollViews constraints back down
+        else {
+            
+            slideDownMainView()
+        }
+        
+        textField.resignFirstResponder() //hides the keyboard on return keypress
+        
+        searchIngredients()
+        
+        return true
+        
+    }
+    
+    
     func textFieldDidEndEditing(textField: UITextField) {
         
         //Return the placeholder text to its original state
         self.ingredientField.attributedPlaceholder = NSAttributedString(string: "Corn")
-        
     }
     
     
