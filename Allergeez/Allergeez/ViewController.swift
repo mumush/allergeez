@@ -21,7 +21,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     @IBOutlet weak var scrollViewCenterYConstraint: NSLayoutConstraint!
     
     //Array of all allergens' column names in the data store, and their correlating label names
-    var allergensArray = [ ("isGlutenFree", "Gluten Free?"), ("isDairyFree", "Dairy Free?"), ("isSoyFree", "Soy Free?")]
+    var allergensArray:[(allergenColName:String, allergenLabelName:String)] = [ ("isGlutenFree", "Gluten Free?"),
+        ("isDairyFree", "Dairy Free?"), ("isSoyFree", "Soy Free?") ]
     
     
     //Arrays used for label under rolling pin icon, based on result of ingredient search
@@ -41,6 +42,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     //Used for speed in UI animations after searching ingredients or swiping allergens
     let changeUIAnimSpeed:NSTimeInterval = 0.2
+    
+    //Frame height of iPhone 5S -> used for view animation when keyboard slides up/down
+    let iPhone5SFrameHeight:CGFloat = 568.0
     
     
     override func viewDidLoad() {
@@ -65,7 +69,19 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     //Populates scrollView with a label for each food allergen from allergensArray
     func populateScrollView() {
         
-        let labelFontSize:CGFloat = 45.0
+        var labelFontSize:CGFloat
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad { //Using an iPad
+            
+            labelFontSize = 50.0
+            println("Pad: \(labelFontSize)")
+        }
+        else { //Using iPhone, iPod Touch, or something else
+            
+            labelFontSize = 45.0
+            println("Phone/Pod: \(labelFontSize)")
+        }
+        
         
         //Populate the scrollview with labels
         for var index = 0; index < allergensArray.count; index++ {
@@ -82,7 +98,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
 
         //contentSize is equal to the number of labels added (3) * the frame width of the scrollView
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(allergensArray.count), height: scrollView.frame.size.height)
-        scrollView.pagingEnabled = true
         scrollView.decelerationRate = UIScrollViewDecelerationRateFast
         
     }
@@ -133,7 +148,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             //Use current pageControl page as index in allergensArray, and select the first (0th) item in the tuple
             //Ex. if "Gluten Free?" page is selected, return "isGlutenFree" from the allergens array tuple -> ("isGlutenFree", "Gluten Free?")
             
-            var isAllergenFree:Bool = queryResult.valueForKey( allergensArray[pageControl.currentPage].0 ) as Bool
+            var isAllergenFree:Bool = queryResult.valueForKey( allergensArray[pageControl.currentPage].allergenColName ) as Bool
             
             if isAllergenFree {
                 
@@ -163,7 +178,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         println("Original String: \(ingredient)")
         
-        var sanitizedIngredient = ingredient.lowercaseString //lol
+        var sanitizedIngredient = ingredient.lowercaseString
         
         println("Lowercase String: \(sanitizedIngredient)")
         
@@ -208,9 +223,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             var foundIngredientObject:NSManagedObject = result[0] as NSManagedObject //only interested in first result
             
             var ingredientName = foundIngredientObject.valueForKey("name") as String
-            var isAllergenFree = foundIngredientObject.valueForKey( allergensArray[pageControl.currentPage].0 ) as Bool
+            var isAllergenFree = foundIngredientObject.valueForKey( allergensArray[pageControl.currentPage].allergenColName ) as Bool
             
-            println("Ingredient Name: \(ingredientName)\n\(allergensArray[pageControl.currentPage].0): \(isAllergenFree)")
+            println("Ingredient Name: \(ingredientName)\n\(allergensArray[pageControl.currentPage].allergenColName): \(isAllergenFree)")
             
             
             return foundIngredientObject
@@ -405,7 +420,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
 
         //If the main views' height is less than that of the 5s, hide and show the scrollView
-        if self.view.frame.height < 568.0 {
+        if self.view.frame.height < iPhone5SFrameHeight {
             
             toggleScrollViewVisible()
         }
@@ -444,7 +459,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         //If the main views' height is less than that of the 5s, hide and show the scrollView
         //*No need to worry about landscape heights, app is portrait only
-        if self.view.frame.height < 568.0 {
+        
+        if self.view.frame.height < iPhone5SFrameHeight {
             
             toggleScrollViewVisible()
         }
