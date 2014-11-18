@@ -36,14 +36,18 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     let greenColor = UIColor(red: 99/255, green: 219/255, blue: 153/255, alpha: 1.0)
     let redColor = UIColor(red: 251/255, green: 112/255, blue: 105/255, alpha: 1.0)
     let purpleColor = UIColor(red: 165/255, green: 124/255, blue: 199/255, alpha: 1.0)
+    let zeroOpacityColor = UIColor(red: 80/255, green: 171/255, blue: 250/250, alpha: 0.0) //used to make the placeholder text transparent
     
+    
+    //Used for speed in UI animations after searching ingredients or swiping allergens
+    let changeUIAnimSpeed:NSTimeInterval = 0.2
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        //Get the EXACT value of the initial background color of the main view defined in IB
+        //Get the exact value of the initial background color of the main view defined in IB
         blueColor = self.view.backgroundColor
         
     }
@@ -60,19 +64,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     //Populates scrollView with a label for each food allergen from allergensArray
     func populateScrollView() {
-
         
-        //Font size of labels depend on the size class
-        var labelFontSize:CGFloat
-        
-        if self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact {
-            
-            labelFontSize = 45.0
-        }
-        else {
-            labelFontSize = 50.0
-        }
-        
+        let labelFontSize:CGFloat = 45.0
         
         //Populate the scrollview with labels
         for var index = 0; index < allergensArray.count; index++ {
@@ -256,7 +249,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
+            UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
 
                 self.view.backgroundColor = self.greenColor
                 self.rollingPinImageButton.setImage(UIImage(named: "rolling_happy"), forState: UIControlState.Normal)
@@ -273,7 +266,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
+            UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
             
                 self.view.backgroundColor = self.redColor
                 self.rollingPinImageButton.setImage(UIImage(named: "rolling_sad"), forState: UIControlState.Normal)
@@ -290,7 +283,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
+            UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
             
                 self.view.backgroundColor = self.purpleColor
                 self.rollingPinImageButton.setImage(UIImage(named: "rolling_oh"), forState: UIControlState.Normal)
@@ -306,7 +299,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
         
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
+            UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
                 self.view.backgroundColor = self.blueColor
                 self.rollingPinImageButton.setImage(nil, forState: UIControlState.Normal)
                 self.rollingPinLabel.hidden = true //hide the informational label
@@ -319,7 +312,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
+            UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
                 self.view.backgroundColor = self.blueColor
                 self.rollingPinImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
                 self.rollingPinLabel.text = self.infoLabelEmptySearch
@@ -333,7 +326,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
+            UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
                 self.view.backgroundColor = self.blueColor
                 self.rollingPinImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
                 self.rollingPinLabel.hidden = true
@@ -434,12 +427,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         //First change the Is/Are label back to "Is" to conform with the singular placeholder "Corn" below
         changeIsAreLabel("Is")
         
-        let zeroOpacityColor = UIColor(red: 80/255, green: 171/255, blue: 250/250, alpha: 0.0)
-        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
-            //Remove the placeholder text to let the user know that they should type in the field
-            self.ingredientField.attributedPlaceholder = NSAttributedString(string: "Corn", attributes: [NSForegroundColorAttributeName: zeroOpacityColor])
+            //Hide the placeholder text (make it transparent) to let the user know that they should type in the field
+            self.ingredientField.attributedPlaceholder = NSAttributedString(string: "Corn", attributes: [NSForegroundColorAttributeName: self.zeroOpacityColor])
             
         }) //end async on main thread
         
