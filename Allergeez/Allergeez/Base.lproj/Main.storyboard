@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B23" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -19,11 +19,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-f9-Lam">
-                                <rect key="frame" x="240" y="395" width="120" height="120"/>
-                                <state key="normal" image="rolling_excited">
+                                <rect key="frame" x="229" y="395" width="142" height="51"/>
+                                <state key="normal" image="excited_medium">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="rolling_excited"/>
+                                <state key="highlighted" image="excited_medium"/>
                                 <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="240" y="621" width="120" height="120"/>
                                 </variation>
@@ -47,24 +47,12 @@
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
                                 </variation>
                                 <variation key="widthClass=regular">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="55"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="65"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="186" y="167" width="30" height="54"/>
                                 </variation>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPb-yu-bCF">
-                                <rect key="frame" x="0.0" y="293" width="600" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="ci3-BA-yh9"/>
-                                </constraints>
-                                <variation key="heightClass=regular" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="370" width="600" height="110"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="iyo-t4-ixy"/>
-                                </connections>
-                            </scrollView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Corn" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nRm-5N-NVi">
                                 <rect key="frame" x="159" y="177" width="283" height="54"/>
                                 <constraints>
@@ -80,13 +68,13 @@
                                     <rect key="frame" x="159" y="282" width="283" height="50"/>
                                 </variation>
                                 <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="40"/>
                                     <mask key="constraints">
                                         <include reference="Zw3-b6-Ffw"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=regular">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="60"/>
                                     <mask key="constraints">
                                         <include reference="Zw3-b6-Ffw"/>
                                     </mask>
@@ -98,29 +86,6 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="kIG-dt-rPs"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap me to get started!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H84-MV-8RC">
-                                <rect key="frame" x="204" y="489" width="192" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="192" id="fkC-lS-PkF">
-                                        <variation key="widthClass=regular" constant="292"/>
-                                    </constraint>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
-                                    <rect key="frame" x="204" y="715" width="192" height="17"/>
-                                </variation>
-                                <variation key="widthClass=regular">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                    <mask key="constraints">
-                                        <include reference="fkC-lS-PkF"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="104" y="725" width="192" height="17"/>
-                                </variation>
-                            </label>
                             <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="p5O-H7-qz6">
                                 <rect key="frame" x="281" y="341" width="39" height="37"/>
                                 <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
@@ -130,43 +95,85 @@
                                     <rect key="frame" x="181" y="456" width="39" height="37"/>
                                 </variation>
                             </pageControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPb-yu-bCF">
+                                <rect key="frame" x="0.0" y="293" width="600" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ci3-BA-yh9">
+                                        <variation key="widthClass=compact" constant="60"/>
+                                        <variation key="widthClass=regular" constant="60"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="heightClass=regular" ambiguous="YES">
+                                    <rect key="frame" x="0.0" y="370" width="600" height="110"/>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="ci3-BA-yh9"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="iyo-t4-ixy"/>
+                                </connections>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap me to get started!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H84-MV-8RC">
+                                <rect key="frame" x="0.0" y="464" width="600" height="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="204" y="715" width="192" height="17"/>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="104" y="725" width="192" height="17"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.40000000000000002" green="0.6470588235294118" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="oPb-yu-bCF" secondAttribute="centerY" constant="-18" id="4cf-5S-GQK">
-                                <variation key="widthClass=compact" constant="-40"/>
+                                <variation key="widthClass=compact" constant="-45"/>
                             </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="H84-MV-8RC" secondAttribute="trailing" constant="-16" id="5uz-3U-b8e"/>
                             <constraint firstItem="PBw-f9-Lam" firstAttribute="top" secondItem="p5O-H7-qz6" secondAttribute="bottom" constant="-5" id="5wL-jm-49o">
                                 <variation key="widthClass=compact" constant="37"/>
                                 <variation key="widthClass=regular" constant="60"/>
                             </constraint>
-                            <constraint firstItem="H84-MV-8RC" firstAttribute="top" secondItem="PBw-f9-Lam" secondAttribute="bottom" constant="-26" id="615-av-F8b"/>
                             <constraint firstAttribute="centerX" secondItem="oPb-yu-bCF" secondAttribute="centerX" id="A3R-jN-hgz"/>
+                            <constraint firstItem="PBw-f9-Lam" firstAttribute="top" secondItem="p5O-H7-qz6" secondAttribute="bottom" constant="17" id="Ak9-gL-wDL">
+                                <variation key="widthClass=compact" constant="47"/>
+                                <variation key="widthClass=regular" constant="87"/>
+                            </constraint>
                             <constraint firstAttribute="centerX" secondItem="nRm-5N-NVi" secondAttribute="centerX" constant="-0.5" id="Ev1-gE-YJ4">
                                 <variation key="widthClass=compact" constant="-1.5"/>
                             </constraint>
                             <constraint firstAttribute="centerX" secondItem="fBr-MJ-hCT" secondAttribute="centerX" id="PoO-iB-Xw3">
                                 <variation key="widthClass=compact" constant="-1"/>
+                                <variation key="widthClass=regular" constant="-1.5"/>
                             </constraint>
                             <constraint firstItem="oPb-yu-bCF" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="TWg-i3-A2n"/>
-                            <constraint firstAttribute="centerX" secondItem="p5O-H7-qz6" secondAttribute="centerX" constant="-0.5" id="XNK-gQ-rYY"/>
-                            <constraint firstAttribute="centerX" secondItem="H84-MV-8RC" secondAttribute="centerX" id="dLX-GT-sVS">
-                                <variation key="widthClass=regular" constant="-4"/>
+                            <constraint firstItem="H84-MV-8RC" firstAttribute="top" secondItem="PBw-f9-Lam" secondAttribute="bottom" constant="18" id="Wb4-B4-hQv">
+                                <variation key="widthClass=compact" constant="14"/>
+                                <variation key="widthClass=regular" constant="18"/>
                             </constraint>
+                            <constraint firstAttribute="centerX" secondItem="p5O-H7-qz6" secondAttribute="centerX" constant="-0.5" id="XNK-gQ-rYY"/>
+                            <constraint firstAttribute="centerX" secondItem="H84-MV-8RC" secondAttribute="centerX" id="bVu-Og-Q8u"/>
                             <constraint firstItem="nRm-5N-NVi" firstAttribute="top" secondItem="fBr-MJ-hCT" secondAttribute="bottom" constant="62" id="eTw-si-RsM">
                                 <variation key="widthClass=compact" constant="62"/>
-                                <variation key="widthClass=regular" constant="92"/>
+                                <variation key="widthClass=regular" constant="102"/>
                             </constraint>
-                            <constraint firstItem="PBw-f9-Lam" firstAttribute="top" secondItem="p5O-H7-qz6" secondAttribute="bottom" constant="17" id="jla-Dx-toK">
-                                <variation key="widthClass=compact" constant="7"/>
-                                <variation key="widthClass=regular" constant="37"/>
+                            <constraint firstItem="p5O-H7-qz6" firstAttribute="top" secondItem="oPb-yu-bCF" secondAttribute="bottom" constant="-2" id="r4w-rH-ahj">
+                                <variation key="widthClass=compact" constant="-12"/>
                             </constraint>
-                            <constraint firstAttribute="centerX" secondItem="PBw-f9-Lam" secondAttribute="centerX" id="lC2-VD-e8w"/>
-                            <constraint firstItem="p5O-H7-qz6" firstAttribute="top" secondItem="oPb-yu-bCF" secondAttribute="bottom" constant="-2" id="r4w-rH-ahj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="oPb-yu-bCF" secondAttribute="trailing" constant="-16" id="sEz-g9-b6z"/>
                             <constraint firstItem="oPb-yu-bCF" firstAttribute="top" secondItem="nRm-5N-NVi" secondAttribute="bottom" constant="62" id="uXQ-A9-9xB">
-                                <variation key="widthClass=regular" constant="92"/>
+                                <variation key="widthClass=compact" constant="62"/>
+                                <variation key="widthClass=regular" constant="98"/>
                             </constraint>
+                            <constraint firstAttribute="centerX" secondItem="PBw-f9-Lam" secondAttribute="centerX" id="umb-sT-wL4"/>
+                            <constraint firstItem="H84-MV-8RC" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="vb2-jg-gzg"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -178,14 +185,15 @@
                                 <include reference="eTw-si-RsM"/>
                                 <include reference="4cf-5S-GQK"/>
                                 <include reference="uXQ-A9-9xB"/>
-                                <include reference="jla-Dx-toK"/>
+                                <include reference="Wb4-B4-hQv"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=regular">
                             <mask key="constraints">
                                 <include reference="eTw-si-RsM"/>
                                 <include reference="uXQ-A9-9xB"/>
-                                <include reference="jla-Dx-toK"/>
+                                <include reference="Ak9-gL-wDL"/>
+                                <include reference="Wb4-B4-hQv"/>
                             </mask>
                         </variation>
                     </view>
@@ -201,10 +209,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="354"/>
+            <point key="canvasLocation" x="78" y="437"/>
         </scene>
     </scenes>
     <resources>
-        <image name="rolling_excited" width="120" height="120"/>
+        <image name="excited_medium" width="142" height="51"/>
     </resources>
 </document>

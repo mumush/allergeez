@@ -43,16 +43,36 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     //Used for speed in UI animations after searching ingredients or swiping allergens
     let changeUIAnimSpeed:NSTimeInterval = 0.2
     
+    //Used in slideUpMainView() and slideDownMainView()
+    let slideUIAnimSpeed:NSTimeInterval = 0.3
+    
+    //Used in toggleScrollViewVisible()
+    let toggleScrollViewAnimSpeed:NSTimeInterval = 0.1
+    
     //Frame height of iPhone 5S -> used for view animation when keyboard slides up/down
+    //Search Interaction will be different if a device has a height less than this
     let iPhone5SFrameHeight:CGFloat = 568.0
+    
+    var deviceHeight:CGFloat!
+    
+    var rollingPinImageSize:String!
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        //Get the exact value of the initial background color of the main view defined in IB
+        //Get the exact value of the initial background color defined in IB
         blueColor = self.view.backgroundColor
+        
+        deviceHeight = self.view.frame.height
+        
+        //Choose the size of the rolling pin icons to be used
+        chooseRollingPinSize()
+        
+        //Change the initial size of the button to match the chosen image size in the above method
+        rollingPinImageButton.setImage( UIImage(named: self.getRollingImageString("excited")), forState: UIControlState.Normal )
+        rollingPinImageButton.setImage( UIImage(named: self.getRollingImageString("excited")), forState: UIControlState.Highlighted )
         
     }
     
@@ -60,10 +80,70 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         super.viewDidAppear(true)
         
-        //puts all allergen labels into the scrollView
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone {
+            
+            adjustFontsForiPhones()
+            
+        }
+        
+        
+        //Puts all allergen labels into the scrollView
         populateScrollView()
         
     }
+    
+    
+    //Based on device height, use a certain postfix for the rolling pin image asset
+    func chooseRollingPinSize() {
+        
+        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone && deviceHeight <= iPhone5SFrameHeight { //iPhone 4s/5/5s
+            
+            rollingPinImageSize = "small"
+            
+        }
+        else if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone && deviceHeight > iPhone5SFrameHeight { //iPhone 6/6 Plus
+            
+            rollingPinImageSize = "medium"
+            
+        }
+        else { //iPad
+            
+            rollingPinImageSize = "large"
+        }
+        
+        println("Rolling Image Size: \(rollingPinImageSize)")
+    }
+    
+    
+    func getRollingImageString(rollingPinFace:String) -> String {
+        
+        println("Rolling Image String: " + rollingPinFace + "_" + self.rollingPinImageSize)
+        
+        return rollingPinFace + "_" + self.rollingPinImageSize
+        
+    }
+    
+    
+    //Based on iPhone height, adjust font sizes to take advantage of space
+    func adjustFontsForiPhones() {
+        
+        if deviceHeight <= iPhone5SFrameHeight { //iPhone 4s/5/5s
+            
+            self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 45.0)
+            self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
+            self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14.0)
+            
+        }
+        else if deviceHeight > iPhone5SFrameHeight { //iPhone 6/6 Plus
+            
+            self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 55.0)
+            self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 50.0)
+            self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 15.0)
+            
+        }
+    }
+    
 
     
     //Populates scrollView with a label for each food allergen from allergensArray
@@ -73,12 +153,22 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad { //Using an iPad
             
-            labelFontSize = 50.0
+            labelFontSize = 60.0
             println("Pad: \(labelFontSize)")
         }
-        else { //Using iPhone, iPod Touch, or something else
+        else { //Any size iPhone, iPod Touch, or something else
             
-            labelFontSize = 45.0
+            if deviceHeight <= iPhone5SFrameHeight { //iPhone 4s/5/5s
+                
+                labelFontSize = 45.0
+                
+            }
+            else  { //iPhone 6/6 Plus
+                
+                labelFontSize = 50.0
+                
+            }
+            
             println("Phone/Pod: \(labelFontSize)")
         }
         
@@ -140,10 +230,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
                 
                 changeIsAreLabel("Are")
             }
-            
-            
-            //Check to see which allergen is selected
-            println("Current Page: \(pageControl.currentPage)")
             
             //Use current pageControl page as index in allergensArray, and select the first (0th) item in the tuple
             //Ex. if "Gluten Free?" page is selected, return "isGlutenFree" from the allergens array tuple -> ("isGlutenFree", "Gluten Free?")
@@ -208,10 +294,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         //assign the query result to "result" array
         var result = context.executeFetchRequest(fetchRequest, error: &fetchError)!
         
-        if((fetchError) != nil) { //if there was a fetch error, CONSIDER another color for fetch errors
+        if((fetchError) != nil) { //if there was a fetch error, alert the user
             
             println("Fetch Error")
             println(fetchError?.localizedDescription)
+            
+            let alert = UIAlertView()
+            alert.title = "This is awkward...A fetch error occurred."
+            alert.message = "We're having some trouble getting your ingredients.  Restart and try again!"
+            alert.addButtonWithTitle("Got it")
+            alert.show()
             
             return nil
             
@@ -267,7 +359,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
 
                 self.view.backgroundColor = self.greenColor
-                self.rollingPinImageButton.setImage(UIImage(named: "rolling_happy"), forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("happy")), forState: UIControlState.Normal)
                 self.rollingPinLabel.text = self.getRandomSaying(self.infoLabelisFreeArray)
                 self.rollingPinLabel.hidden = false
             
@@ -284,7 +376,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
             
                 self.view.backgroundColor = self.redColor
-                self.rollingPinImageButton.setImage(UIImage(named: "rolling_sad"), forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("sad")), forState: UIControlState.Normal)
                 self.rollingPinLabel.text = self.getRandomSaying(self.infoLabelisNotFreeArray)
                 self.rollingPinLabel.hidden = false
             
@@ -301,7 +393,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
             
                 self.view.backgroundColor = self.purpleColor
-                self.rollingPinImageButton.setImage(UIImage(named: "rolling_oh"), forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("oh")), forState: UIControlState.Normal)
                 self.rollingPinLabel.text = self.getRandomSaying(self.infoLabelNotFoundArray)
                 self.rollingPinLabel.hidden = false
             
@@ -329,7 +421,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
             UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
                 self.view.backgroundColor = self.blueColor
-                self.rollingPinImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("smh")), forState: UIControlState.Normal)
                 self.rollingPinLabel.text = self.infoLabelEmptySearch
                 self.rollingPinLabel.hidden = false
             }) //end animation
@@ -343,7 +435,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
             UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
                 self.view.backgroundColor = self.blueColor
-                self.rollingPinImageButton.setImage(UIImage(named: "rolling_smh"), forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("smh")), forState: UIControlState.Normal)
                 self.rollingPinLabel.hidden = true
             }) //end animation
         })
@@ -355,7 +447,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     func toggleScrollViewVisible() {
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            UIView.animateWithDuration(0.1, animations: { () -> Void in
+            UIView.animateWithDuration(self.toggleScrollViewAnimSpeed, animations: { () -> Void in
                 
                 if self.scrollView.hidden == true { //if it's already hidden, show it
                     
@@ -381,7 +473,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         self.view.layoutIfNeeded()
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animateWithDuration(self.slideUIAnimSpeed, animations: { () -> Void in
                 
                 self.scrollViewCenterYConstraint.constant = self.scrollViewCenterYConstraint.constant + 40.0
                 
@@ -400,7 +492,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         self.view.layoutIfNeeded()
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animateWithDuration(self.slideUIAnimSpeed, animations: { () -> Void in
                 
                 self.scrollViewCenterYConstraint.constant = self.scrollViewCenterYConstraint.constant - 40.0
                 
