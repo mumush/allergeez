@@ -68,7 +68,7 @@
                                     <rect key="frame" x="159" y="282" width="283" height="50"/>
                                 </variation>
                                 <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="40"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
                                     <mask key="constraints">
                                         <include reference="Zw3-b6-Ffw"/>
                                     </mask>

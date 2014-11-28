@@ -84,7 +84,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone {
             
-            adjustFontsForiPhones()
+            adjustFontsForLargeriPhones()
         }
         
         //Puts all allergen labels into the scrollView
@@ -122,16 +122,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     
     //Based on iPhone height, adjust font sizes to take advantage of space
-    func adjustFontsForiPhones() {
+    func adjustFontsForLargeriPhones() {
         
-        if deviceHeight <= iPhone5SFrameHeight { //iPhone 4s/5/5s
-            
-            self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 45.0)
-            self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
-            self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 15.0)
-            
-        }
-        else if deviceHeight > iPhone5SFrameHeight { //iPhone 6/6 Plus
+        if deviceHeight > iPhone5SFrameHeight { //iPhone 6/6 Plus
             
             self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 55.0)
             self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 50.0)
