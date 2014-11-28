@@ -110,14 +110,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
             rollingPinImageSize = "large"
         }
-        
-        println("Rolling Image Size: \(rollingPinImageSize)")
+
     }
     
     
     func getRollingImageString(rollingPinFace:String) -> String {
-        
-        println("Rolling Image String: " + rollingPinFace + "_" + self.rollingPinImageSize)
         
         return rollingPinFace + "_" + self.rollingPinImageSize
         
@@ -139,7 +136,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 55.0)
             self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 50.0)
             self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 16.0)
-            
         }
     }
     
@@ -153,7 +149,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad { //Using an iPad
             
             labelFontSize = 60.0
-            println("Pad: \(labelFontSize)")
+            
         }
         else { //Any size iPhone, iPod Touch, or something else
             
@@ -168,7 +164,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
                 
             }
             
-            println("Phone/Pod: \(labelFontSize)")
         }
         
         
@@ -221,8 +216,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         if let queryResult = queryIngredientStore(sanitizedIngredient) { //the ingredient exists in the DB, use it's managed object
             
             var ingredientName = queryResult.valueForKey("name") as String
-            println("\(ingredientName)")
-            
             
             //If the ingredient should be pronounced plural, change the label to read "Are"
             if ingredientName.hasSuffix("s") && !ingredientName.hasSuffix("us") && !ingredientName.hasSuffix("ss") {
@@ -248,8 +241,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
         }
         else { //the ingredient is nil, it does not exist in the store
-            
-            println("Ingredient wasn't found")
                 
             self.changeUINotFound()
         }
@@ -261,16 +252,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     //Returns the sanitized version of the ingredient string the user entered in the text field
     func sanitizeIngredientString(ingredient:String) -> String {
         
-        println("Original String: \(ingredient)")
-        
         var sanitizedIngredient = ingredient.lowercaseString
-        
-        println("Lowercase String: \(sanitizedIngredient)")
         
         sanitizedIngredient = sanitizedIngredient.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         sanitizedIngredient = sanitizedIngredient.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
-        
-        println("No Whitespace/Punctuation String: \(sanitizedIngredient)")
         
         return sanitizedIngredient
         
@@ -295,36 +280,19 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         if((fetchError) != nil) { //if there was a fetch error, alert the user
             
-            println("Fetch Error")
             println(fetchError?.localizedDescription)
-            
-            let alert = UIAlertView()
-            alert.title = "This is awkward...A fetch error occurred."
-            alert.message = "We're having some trouble getting your ingredients.  Restart and try again!"
-            alert.addButtonWithTitle("Got it")
-            alert.show()
             
             return nil
             
         }
         else if( result.count > 0 ) { //if at least one result was found
             
-            println("Result List: \(result)")
-            
             var foundIngredientObject:NSManagedObject = result[0] as NSManagedObject //only interested in first result
-            
-            var ingredientName = foundIngredientObject.valueForKey("name") as String
-            var isAllergenFree = foundIngredientObject.valueForKey( allergensArray[pageControl.currentPage].allergenColName ) as Bool
-            
-            println("Ingredient Name: \(ingredientName)\n\(allergensArray[pageControl.currentPage].allergenColName): \(isAllergenFree)")
-            
             
             return foundIngredientObject
             
         }
         else { //if no result was found
-            
-            println("Ingredient not in store")
          
             return nil
             
