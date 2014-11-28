@@ -53,9 +53,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     //Search Interaction will be different if a device has a height less than this
     let iPhone5SFrameHeight:CGFloat = 568.0
     
-    var deviceHeight:CGFloat!
-    
+    //String denoting the size of the rolling pin image icon -> small, medium, large
     var rollingPinImageSize:String!
+    
+    var deviceHeight:CGFloat!
     
     
     override func viewDidLoad() {
@@ -84,9 +85,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone {
             
             adjustFontsForiPhones()
-            
         }
-        
         
         //Puts all allergen labels into the scrollView
         populateScrollView()
@@ -132,14 +131,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
             self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 45.0)
             self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 40.0)
-            self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14.0)
+            self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 15.0)
             
         }
         else if deviceHeight > iPhone5SFrameHeight { //iPhone 6/6 Plus
             
             self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 55.0)
             self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 50.0)
-            self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 15.0)
+            self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 16.0)
             
         }
     }
