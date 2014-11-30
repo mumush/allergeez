@@ -126,8 +126,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         if deviceHeight > iPhone5SFrameHeight { //iPhone 6/6 Plus
             
-            self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 55.0)
-            self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 50.0)
+            self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 60.0)
+            self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 55.0)
             self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 16.0)
         }
     }
@@ -153,7 +153,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             }
             else  { //iPhone 6/6 Plus
                 
-                labelFontSize = 50.0
+                labelFontSize = 55.0
                 
             }
             
@@ -320,6 +320,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
 
                 self.view.backgroundColor = self.greenColor
                 self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("happy")), forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("excited")), forState: UIControlState.Highlighted)
                 self.rollingPinLabel.text = self.getRandomSaying(self.infoLabelisFreeArray)
                 self.rollingPinLabel.hidden = false
             
@@ -337,6 +338,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
                 self.view.backgroundColor = self.redColor
                 self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("sad")), forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("excited")), forState: UIControlState.Highlighted)
                 self.rollingPinLabel.text = self.getRandomSaying(self.infoLabelisNotFreeArray)
                 self.rollingPinLabel.hidden = false
             
@@ -354,6 +356,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
                 self.view.backgroundColor = self.purpleColor
                 self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("oh")), forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("excited")), forState: UIControlState.Highlighted)
                 self.rollingPinLabel.text = self.getRandomSaying(self.infoLabelNotFoundArray)
                 self.rollingPinLabel.hidden = false
             
@@ -369,6 +372,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
                 self.view.backgroundColor = self.blueColor
                 self.rollingPinImageButton.setImage(nil, forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(nil, forState: UIControlState.Highlighted)
                 self.rollingPinLabel.hidden = true //hide the informational label
             }) //end animation
         })
@@ -382,6 +386,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
                 self.view.backgroundColor = self.blueColor
                 self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("smh")), forState: UIControlState.Normal)
+                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("excited")), forState: UIControlState.Highlighted)
                 self.rollingPinLabel.text = self.infoLabelEmptySearch
                 self.rollingPinLabel.hidden = false
             }) //end animation
@@ -395,8 +400,20 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             
             UIView.animateWithDuration(self.changeUIAnimSpeed, animations: { () -> Void in
                 self.view.backgroundColor = self.blueColor
-                self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("smh")), forState: UIControlState.Normal)
+                
+                if self.ingredientField.isFirstResponder() { //If the keyboard is visible, hide the rolling pin image
+                    
+                    self.rollingPinImageButton.setImage(nil, forState: UIControlState.Normal)
+                    self.rollingPinImageButton.setImage(nil, forState: UIControlState.Highlighted)
+                }
+                else { //if it isn't, change the image on swipe
+                    
+                    self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("smh")), forState: UIControlState.Normal)
+                    self.rollingPinImageButton.setImage(UIImage(named: self.getRollingImageString("excited")), forState: UIControlState.Highlighted)
+                }
+                
                 self.rollingPinLabel.hidden = true
+                
             }) //end animation
         })
     }
