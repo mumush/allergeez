@@ -49,6 +49,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     //Used in toggleScrollViewVisible()
     let toggleScrollViewAnimSpeed:NSTimeInterval = 0.1
     
+    
+    let scrollViewSlideConstraint:CGFloat = 40.0
+    
+    
     //Frame height of iPhone 5S -> used for view animation when keyboard slides up/down
     //Search Interaction will be different if a device has a height less than this
     let iPhone5SFrameHeight:CGFloat = 568.0
@@ -154,7 +158,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
             else  { //iPhone 6/6 Plus
                 
                 labelFontSize = 55.0
-                
             }
             
         }
@@ -452,7 +455,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             UIView.animateWithDuration(self.slideUIAnimSpeed, animations: { () -> Void in
                 
-                self.scrollViewCenterYConstraint.constant = self.scrollViewCenterYConstraint.constant + 40.0
+                self.scrollViewCenterYConstraint.constant = self.scrollViewCenterYConstraint.constant + self.scrollViewSlideConstraint
                 
                 self.view.layoutIfNeeded()
                 
@@ -471,7 +474,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             UIView.animateWithDuration(self.slideUIAnimSpeed, animations: { () -> Void in
                 
-                self.scrollViewCenterYConstraint.constant = self.scrollViewCenterYConstraint.constant - 40.0
+                self.scrollViewCenterYConstraint.constant = self.scrollViewCenterYConstraint.constant - self.scrollViewSlideConstraint
                 
                 self.view.layoutIfNeeded()
                 
@@ -526,6 +529,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
+        //Capitalize the string if the user does not have auto cap for the first letter of every word (looks cleaner if all words are caps)
+        self.ingredientField.text = self.ingredientField.text.capitalizedString
+        
         //If the main views' height is less than that of the 5s, hide and show the scrollView
         //*No need to worry about landscape heights, app is portrait only
         
@@ -552,6 +558,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         //Return the placeholder text to its original state
         self.ingredientField.attributedPlaceholder = NSAttributedString(string: "Corn")
+        
+        
     }
     
     

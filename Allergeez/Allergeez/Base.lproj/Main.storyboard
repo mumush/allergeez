@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-f9-Lam">
-                                <rect key="frame" x="229" y="395" width="142" height="51"/>
+                                <rect key="frame" x="229" y="408" width="142" height="51"/>
                                 <state key="normal" image="excited_medium">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -54,13 +54,7 @@
                                 </variation>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Corn" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nRm-5N-NVi">
-                                <rect key="frame" x="159" y="177" width="283" height="54"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="283" id="Zw3-b6-Ffw">
-                                        <variation key="widthClass=compact" constant="303"/>
-                                        <variation key="widthClass=regular" constant="383"/>
-                                    </constraint>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="177" width="600" height="54"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="search"/>
@@ -69,15 +63,9 @@
                                 </variation>
                                 <variation key="widthClass=compact">
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
-                                    <mask key="constraints">
-                                        <include reference="Zw3-b6-Ffw"/>
-                                    </mask>
                                 </variation>
                                 <variation key="widthClass=regular">
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="60"/>
-                                    <mask key="constraints">
-                                        <include reference="Zw3-b6-Ffw"/>
-                                    </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="59" y="288" width="283" height="48"/>
@@ -87,7 +75,7 @@
                                 </connections>
                             </textField>
                             <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="p5O-H7-qz6">
-                                <rect key="frame" x="281" y="341" width="39" height="37"/>
+                                <rect key="frame" x="281" y="354" width="39" height="37"/>
                                 <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="281" y="456" width="39" height="37"/>
                                 </variation>
@@ -96,11 +84,11 @@
                                 </variation>
                             </pageControl>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPb-yu-bCF">
-                                <rect key="frame" x="0.0" y="293" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="293" width="600" height="65"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="ci3-BA-yh9">
-                                        <variation key="widthClass=compact" constant="60"/>
-                                        <variation key="widthClass=regular" constant="60"/>
+                                    <constraint firstAttribute="height" constant="65" id="ci3-BA-yh9">
+                                        <variation key="widthClass=compact" constant="65"/>
+                                        <variation key="widthClass=regular" constant="70"/>
                                     </constraint>
                                 </constraints>
                                 <variation key="heightClass=regular" ambiguous="YES">
@@ -115,8 +103,8 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="iyo-t4-ixy"/>
                                 </connections>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap me to get started!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H84-MV-8RC">
-                                <rect key="frame" x="0.0" y="464" width="600" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap me to get started!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H84-MV-8RC">
+                                <rect key="frame" x="0.0" y="477" width="600" height="16"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -136,8 +124,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.40000000000000002" green="0.6470588235294118" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="oPb-yu-bCF" secondAttribute="centerY" constant="-18" id="4cf-5S-GQK">
-                                <variation key="widthClass=compact" constant="-45"/>
+                            <constraint firstAttribute="centerY" secondItem="oPb-yu-bCF" secondAttribute="centerY" constant="-25.5" id="4cf-5S-GQK">
+                                <variation key="widthClass=compact" constant="-47.5"/>
+                                <variation key="widthClass=regular" constant="-31"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="H84-MV-8RC" secondAttribute="trailing" constant="-16" id="5uz-3U-b8e"/>
                             <constraint firstItem="PBw-f9-Lam" firstAttribute="top" secondItem="p5O-H7-qz6" secondAttribute="bottom" constant="-5" id="5wL-jm-49o">
@@ -149,13 +138,12 @@
                                 <variation key="widthClass=compact" constant="47"/>
                                 <variation key="widthClass=regular" constant="87"/>
                             </constraint>
-                            <constraint firstAttribute="centerX" secondItem="nRm-5N-NVi" secondAttribute="centerX" constant="-0.5" id="Ev1-gE-YJ4">
-                                <variation key="widthClass=compact" constant="-1.5"/>
-                            </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="nRm-5N-NVi" secondAttribute="trailing" constant="-16" id="AkN-cn-uHj"/>
                             <constraint firstAttribute="centerX" secondItem="fBr-MJ-hCT" secondAttribute="centerX" id="PoO-iB-Xw3">
                                 <variation key="widthClass=compact" constant="-1"/>
                                 <variation key="widthClass=regular" constant="-1.5"/>
                             </constraint>
+                            <constraint firstItem="nRm-5N-NVi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="PwT-8S-e6l"/>
                             <constraint firstItem="oPb-yu-bCF" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="TWg-i3-A2n"/>
                             <constraint firstItem="H84-MV-8RC" firstAttribute="top" secondItem="PBw-f9-Lam" secondAttribute="bottom" constant="18" id="Wb4-B4-hQv">
                                 <variation key="widthClass=compact" constant="14"/>
@@ -167,8 +155,9 @@
                                 <variation key="widthClass=compact" constant="62"/>
                                 <variation key="widthClass=regular" constant="102"/>
                             </constraint>
-                            <constraint firstItem="p5O-H7-qz6" firstAttribute="top" secondItem="oPb-yu-bCF" secondAttribute="bottom" constant="-2" id="r4w-rH-ahj">
-                                <variation key="widthClass=compact" constant="-12"/>
+                            <constraint firstItem="p5O-H7-qz6" firstAttribute="top" secondItem="oPb-yu-bCF" secondAttribute="bottom" constant="-4" id="r4w-rH-ahj">
+                                <variation key="widthClass=compact" constant="-11"/>
+                                <variation key="widthClass=regular" constant="-5"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="oPb-yu-bCF" secondAttribute="trailing" constant="-16" id="sEz-g9-b6z"/>
                             <constraint firstItem="oPb-yu-bCF" firstAttribute="top" secondItem="nRm-5N-NVi" secondAttribute="bottom" constant="62" id="uXQ-A9-9xB">
