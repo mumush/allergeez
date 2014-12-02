@@ -44,17 +44,17 @@
                                     <rect key="frame" x="284" y="143" width="36" height="65"/>
                                 </variation>
                                 <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
                                 </variation>
                                 <variation key="widthClass=regular">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="65"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="70"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="186" y="167" width="30" height="54"/>
                                 </variation>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Corn" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nRm-5N-NVi">
-                                <rect key="frame" x="0.0" y="177" width="600" height="54"/>
+                                <rect key="frame" x="16" y="177" width="568" height="54"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="search"/>
@@ -62,10 +62,10 @@
                                     <rect key="frame" x="159" y="282" width="283" height="50"/>
                                 </variation>
                                 <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="50"/>
                                 </variation>
                                 <variation key="widthClass=regular">
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="60"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="65"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="59" y="288" width="283" height="48"/>
@@ -87,8 +87,8 @@
                                 <rect key="frame" x="0.0" y="293" width="600" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="ci3-BA-yh9">
-                                        <variation key="widthClass=compact" constant="65"/>
-                                        <variation key="widthClass=regular" constant="70"/>
+                                        <variation key="widthClass=compact" constant="70"/>
+                                        <variation key="widthClass=regular" constant="80"/>
                                     </constraint>
                                 </constraints>
                                 <variation key="heightClass=regular" ambiguous="YES">
@@ -125,8 +125,8 @@
                         <color key="backgroundColor" red="0.40000000000000002" green="0.6470588235294118" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="oPb-yu-bCF" secondAttribute="centerY" constant="-25.5" id="4cf-5S-GQK">
-                                <variation key="widthClass=compact" constant="-47.5"/>
-                                <variation key="widthClass=regular" constant="-31"/>
+                                <variation key="widthClass=compact" constant="-50"/>
+                                <variation key="widthClass=regular" constant="-36"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="H84-MV-8RC" secondAttribute="trailing" constant="-16" id="5uz-3U-b8e"/>
                             <constraint firstItem="PBw-f9-Lam" firstAttribute="top" secondItem="p5O-H7-qz6" secondAttribute="bottom" constant="-5" id="5wL-jm-49o">
@@ -138,12 +138,12 @@
                                 <variation key="widthClass=compact" constant="47"/>
                                 <variation key="widthClass=regular" constant="87"/>
                             </constraint>
-                            <constraint firstAttribute="trailingMargin" secondItem="nRm-5N-NVi" secondAttribute="trailing" constant="-16" id="AkN-cn-uHj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nRm-5N-NVi" secondAttribute="trailing" id="AkN-cn-uHj"/>
                             <constraint firstAttribute="centerX" secondItem="fBr-MJ-hCT" secondAttribute="centerX" id="PoO-iB-Xw3">
                                 <variation key="widthClass=compact" constant="-1"/>
                                 <variation key="widthClass=regular" constant="-1.5"/>
                             </constraint>
-                            <constraint firstItem="nRm-5N-NVi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="PwT-8S-e6l"/>
+                            <constraint firstItem="nRm-5N-NVi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="PwT-8S-e6l"/>
                             <constraint firstItem="oPb-yu-bCF" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="TWg-i3-A2n"/>
                             <constraint firstItem="H84-MV-8RC" firstAttribute="top" secondItem="PBw-f9-Lam" secondAttribute="bottom" constant="18" id="Wb4-B4-hQv">
                                 <variation key="widthClass=compact" constant="14"/>
@@ -156,8 +156,8 @@
                                 <variation key="widthClass=regular" constant="102"/>
                             </constraint>
                             <constraint firstItem="p5O-H7-qz6" firstAttribute="top" secondItem="oPb-yu-bCF" secondAttribute="bottom" constant="-4" id="r4w-rH-ahj">
-                                <variation key="widthClass=compact" constant="-11"/>
-                                <variation key="widthClass=regular" constant="-5"/>
+                                <variation key="widthClass=compact" constant="-12"/>
+                                <variation key="widthClass=regular" constant="-9"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="oPb-yu-bCF" secondAttribute="trailing" constant="-16" id="sEz-g9-b6z"/>
                             <constraint firstItem="oPb-yu-bCF" firstAttribute="top" secondItem="nRm-5N-NVi" secondAttribute="bottom" constant="62" id="uXQ-A9-9xB">
@@ -190,9 +190,12 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="cornToScrollViewConstraint" destination="uXQ-A9-9xB" id="yWl-4K-pen"/>
                         <outlet property="ingredientField" destination="nRm-5N-NVi" id="fcO-VY-URK"/>
                         <outlet property="isAreLabel" destination="fBr-MJ-hCT" id="voU-B1-ztP"/>
+                        <outlet property="isToCornConstraint" destination="eTw-si-RsM" id="grk-Og-Y0x"/>
                         <outlet property="pageControl" destination="p5O-H7-qz6" id="gW3-6H-o83"/>
+                        <outlet property="pageControlToRollingConstraint" destination="Ak9-gL-wDL" id="l6n-gV-wTs"/>
                         <outlet property="rollingPinImageButton" destination="PBw-f9-Lam" id="4Rt-uG-UsJ"/>
                         <outlet property="rollingPinLabel" destination="H84-MV-8RC" id="P7p-fB-wby"/>
                         <outlet property="scrollView" destination="oPb-yu-bCF" id="GUx-Fi-CLK"/>

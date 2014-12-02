@@ -20,6 +20,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     @IBOutlet weak var scrollViewCenterYConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var isToCornConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cornToScrollViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pageControlToRollingConstraint: NSLayoutConstraint!
+    
+    
+    
     //Array of all allergens' column names in the data store, and their correlating label names
     var allergensArray:[(allergenColName:String, allergenLabelName:String)] = [ ("isGlutenFree", "Gluten Free?"),
         ("isDairyFree", "Dairy Free?"), ("isSoyFree", "Soy Free?") ]
@@ -49,8 +55,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     //Used in toggleScrollViewVisible()
     let toggleScrollViewAnimSpeed:NSTimeInterval = 0.1
     
-    
-    let scrollViewSlideConstraint:CGFloat = 40.0
+    //How much to slide the center aligned scrollView up and down when focus goes to the ingredient text field
+    let scrollViewSlideConstraint:CGFloat = 50.0
     
     
     //Frame height of iPhone 5S -> used for view animation when keyboard slides up/down
@@ -60,6 +66,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     //String denoting the size of the rolling pin image icon -> small, medium, large
     var rollingPinImageSize:String!
     
+    //Duh
     var deviceHeight:CGFloat!
     
     
@@ -84,11 +91,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     override func viewDidAppear(animated: Bool) {
         
         super.viewDidAppear(true)
-        
-        
-        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone {
+
+        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone { //adjust for iPhone 4, 6, 6 Plus
             
-            adjustFontsForLargeriPhones()
+            adjustLayoutForiPhones()
         }
         
         //Puts all allergen labels into the scrollView
@@ -103,12 +109,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone && deviceHeight <= iPhone5SFrameHeight { //iPhone 4s/5/5s
             
             rollingPinImageSize = "small"
-            
         }
         else if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone && deviceHeight > iPhone5SFrameHeight { //iPhone 6/6 Plus
             
             rollingPinImageSize = "medium"
-            
         }
         else { //iPad
             
@@ -118,6 +122,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     }
     
     
+    //Returns a string representation of the file name for the rolling pin image button
     func getRollingImageString(rollingPinFace:String) -> String {
         
         return rollingPinFace + "_" + self.rollingPinImageSize
@@ -126,14 +131,24 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
     
     
     //Based on iPhone height, adjust font sizes to take advantage of space
-    func adjustFontsForLargeriPhones() {
+    func adjustLayoutForiPhones() {
         
-        if deviceHeight > iPhone5SFrameHeight { //iPhone 6/6 Plus
+        if deviceHeight < iPhone5SFrameHeight { //iPhone 4
+            
+            self.pageControlToRollingConstraint.constant = self.pageControlToRollingConstraint.constant - 20.0
+            
+        }
+        else if deviceHeight > iPhone5SFrameHeight { //iPhone 6/ 6 Plus
             
             self.isAreLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 60.0)
-            self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 55.0)
+            self.ingredientField.font = UIFont(name: "HelveticaNeue-Thin", size: 60.0)
             self.rollingPinLabel.font = UIFont(name: "HelveticaNeue-Light", size: 16.0)
+            
+            self.isToCornConstraint.constant = self.isToCornConstraint.constant + 10.0
+            self.cornToScrollViewConstraint.constant = self.cornToScrollViewConstraint.constant + 10.0
+            self.pageControlToRollingConstraint.constant = self.pageControlToRollingConstraint.constant + 10.0
         }
+        
     }
     
 
@@ -145,19 +160,19 @@ class ViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegat
         
         if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad { //Using an iPad
             
-            labelFontSize = 60.0
+            labelFontSize = 70.0
             
         }
         else { //Any size iPhone, iPod Touch, or something else
             
             if deviceHeight <= iPhone5SFrameHeight { //iPhone 4s/5/5s
                 
-                labelFontSize = 45.0
+                labelFontSize = 50.0
                 
             }
             else  { //iPhone 6/6 Plus
                 
-                labelFontSize = 55.0
+                labelFontSize = 60.0
             }
             
         }
