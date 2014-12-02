@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		94C1E2791A20EDAC00FE06F7 /* Foods.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 94C1E2781A20EDAC00FE06F7 /* Foods.sqlite */; };
+		94318C2E1A2D43A700929CA4 /* Foods.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 94318C2D1A2D43A700929CA4 /* Foods.sqlite */; };
 		94C6B26619E862A300D0FC4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6B26519E862A300D0FC4C /* AppDelegate.swift */; };
 		94C6B26919E862A300D0FC4C /* Allergeez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94C6B26719E862A300D0FC4C /* Allergeez.xcdatamodeld */; };
 		94C6B26B19E862A300D0FC4C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6B26A19E862A300D0FC4C /* ViewController.swift */; };
@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		94C1E2781A20EDAC00FE06F7 /* Foods.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foods.sqlite; sourceTree = "<group>"; };
+		94318C2D1A2D43A700929CA4 /* Foods.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foods.sqlite; sourceTree = "<group>"; };
 		94C6B26019E862A300D0FC4C /* Allergeez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Allergeez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94C6B26419E862A300D0FC4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94C6B26519E862A300D0FC4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 				94C6B26F19E862A300D0FC4C /* Images.xcassets */,
 				94C6B27119E862A300D0FC4C /* LaunchScreen.xib */,
 				94C6B26719E862A300D0FC4C /* Allergeez.xcdatamodeld */,
-				94C1E2781A20EDAC00FE06F7 /* Foods.sqlite */,
+				94318C2D1A2D43A700929CA4 /* Foods.sqlite */,
 				94C6B26319E862A300D0FC4C /* Supporting Files */,
 			);
 			path = Allergeez;
@@ -202,7 +202,7 @@
 				94C6B26E19E862A300D0FC4C /* Main.storyboard in Resources */,
 				94C6B27319E862A300D0FC4C /* LaunchScreen.xib in Resources */,
 				94C6B27019E862A300D0FC4C /* Images.xcassets in Resources */,
-				94C1E2791A20EDAC00FE06F7 /* Foods.sqlite in Resources */,
+				94318C2E1A2D43A700929CA4 /* Foods.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
